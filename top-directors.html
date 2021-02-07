@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Directors &#8212; Movies Data Analysis</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exploratory Data Analysis" href="exploratory-analysis.html" />
+    <link rel="prev" title="Movies Data Analysis" href="intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Movies Data Analysis</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Movies Data Analysis
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Top Directors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exploratory-analysis.html">
+   Exploratory Data Analysis
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/top-directors.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/top-directors.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="top-directors">
+<h1>Top Directors<a class="headerlink" href="#top-directors" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import requirements</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;archive/Movie_Movies.csv&quot;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overview</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Awards</th>
+      <th>Country</th>
+      <th>DVD</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Plot</th>
+      <th>Poster</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Website</th>
+      <th>Year</th>
+      <th>imdbID</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Rose Cummings</td>
+      <td>English</td>
+      <td>Rachel constantly hears her baby cry from the ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>26 Apr 2012</td>
+      <td>20 min</td>
+      <td>Baby's Breath</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2012</td>
+      <td>tt2268369</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>James Byrne</td>
+      <td>NaN</td>
+      <td>The struggle against unfortunate circumstances...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>9 min</td>
+      <td>Winter Trees</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2008</td>
+      <td>tt1560760</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Dimitri Buchowetzki</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27 Mar 1926</td>
+      <td>50 min</td>
+      <td>The Crown of Lies</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>1926</td>
+      <td>tt0016750</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Julia Hechler</td>
+      <td>English</td>
+      <td>A Gift introduces Samuel Green, Washington Sta...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27 May 2013</td>
+      <td>2 min</td>
+      <td>A Gift</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2013</td>
+      <td>tt3405286</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>Sri Lanka</td>
+      <td>NaN</td>
+      <td>Udara Siriruwan</td>
+      <td>Sinhalese</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20 Mar 2014</td>
+      <td>23 min</td>
+      <td>Journey</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2014</td>
+      <td>tt3816698</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General info</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 178687 entries, 0 to 178686
+Data columns (total 18 columns):
+ #   Column      Non-Null Count   Dtype  
+---  ------      --------------   -----  
+ 0   Awards      20340 non-null   object 
+ 1   Country     165998 non-null  object 
+ 2   DVD         15949 non-null   object 
+ 3   Director    151353 non-null  object 
+ 4   Language    153196 non-null  object 
+ 5   Plot        97476 non-null   object 
+ 6   Poster      48414 non-null   object 
+ 7   Production  16446 non-null   object 
+ 8   Rated       23906 non-null   object 
+ 9   Released    116974 non-null  object 
+ 10  Runtime     119497 non-null  object 
+ 11  Title       178686 non-null  object 
+ 12  Type        178686 non-null  object 
+ 13  Website     6747 non-null    object 
+ 14  Year        178686 non-null  object 
+ 15  imdbID      178686 non-null  object 
+ 16  imdbRating  62073 non-null   float64
+ 17  imdbVotes   62029 non-null   object 
+dtypes: float64(1), object(17)
+memory usage: 24.5+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Description on some columns</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>imdbRating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>62073.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>6.416236</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.360472</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>5.600000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>6.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>7.300000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>10.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Top 10 directors by movie count</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">Director</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jim Powers                             151
+D.W. Griffith                          101
+Lewin Fitzhamon                         95
+Dave Fleischer                          94
+Al Christie                             90
+Georges Méliès                          86
+Gilbert M. &#39;Broncho Billy&#39; Anderson     85
+Quasarman                               84
+Kevin Dunn                              83
+James H. White                          78
+Name: Director, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pretty print top 10 directors by movie count</span>
+<span class="n">director_counts</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Director&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">director_counts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Director&#39;</span><span class="p">,</span><span class="s1">&#39;NumberOfMoviesProduced&#39;</span><span class="p">]</span>
+<span class="n">director_counts</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style  type="text/css" >
+</style><table id="T_08263_" ><thead>    <tr>        <th class="col_heading level0 col0" >Director</th>        <th class="col_heading level0 col1" >NumberOfMoviesProduced</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_08263_row0_col0" class="data row0 col0" >Jim Powers</td>
+                        <td id="T_08263_row0_col1" class="data row0 col1" >151</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row1_col0" class="data row1 col0" >D.W. Griffith</td>
+                        <td id="T_08263_row1_col1" class="data row1 col1" >101</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row2_col0" class="data row2 col0" >Lewin Fitzhamon</td>
+                        <td id="T_08263_row2_col1" class="data row2 col1" >95</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row3_col0" class="data row3 col0" >Dave Fleischer</td>
+                        <td id="T_08263_row3_col1" class="data row3 col1" >94</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row4_col0" class="data row4 col0" >Al Christie</td>
+                        <td id="T_08263_row4_col1" class="data row4 col1" >90</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row5_col0" class="data row5 col0" >Georges Méliès</td>
+                        <td id="T_08263_row5_col1" class="data row5 col1" >86</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row6_col0" class="data row6 col0" >Gilbert M. 'Broncho Billy' Anderson</td>
+                        <td id="T_08263_row6_col1" class="data row6 col1" >85</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row7_col0" class="data row7 col0" >Quasarman</td>
+                        <td id="T_08263_row7_col1" class="data row7 col1" >84</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row8_col0" class="data row8 col0" >Kevin Dunn</td>
+                        <td id="T_08263_row8_col1" class="data row8 col1" >83</td>
+            </tr>
+            <tr>
+                                <td id="T_08263_row9_col0" class="data row9 col0" >James H. White</td>
+                        <td id="T_08263_row9_col1" class="data row9 col1" >78</td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Movies Data Analysis</a>
+    <a class='right-next' id="next-link" href="exploratory-analysis.html" title="next page">Exploratory Data Analysis</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By H. Sinan Alioglu<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

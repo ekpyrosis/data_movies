@@ -1,0 +1,3138 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exploratory Data Analysis &#8212; Movies Data Analysis</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Top Directors" href="top-directors.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Movies Data Analysis</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Movies Data Analysis
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="top-directors.html">
+   Top Directors
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Exploratory Data Analysis
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/exploratory-analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/exploratory-analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="exploratory-data-analysis">
+<h1>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import requirements</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set defaults</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;archive/Movie_Movies.csv&quot;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">genres</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;archive/Movie_Genres.csv&quot;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ratings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;archive/Movie_AdditionalRating.csv&quot;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overview</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Awards</th>
+      <th>Country</th>
+      <th>DVD</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Plot</th>
+      <th>Poster</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Website</th>
+      <th>Year</th>
+      <th>imdbID</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Rose Cummings</td>
+      <td>English</td>
+      <td>Rachel constantly hears her baby cry from the ...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>26 Apr 2012</td>
+      <td>20 min</td>
+      <td>Baby's Breath</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2012</td>
+      <td>tt2268369</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>James Byrne</td>
+      <td>NaN</td>
+      <td>The struggle against unfortunate circumstances...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>9 min</td>
+      <td>Winter Trees</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2008</td>
+      <td>tt1560760</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Dimitri Buchowetzki</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27 Mar 1926</td>
+      <td>50 min</td>
+      <td>The Crown of Lies</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>1926</td>
+      <td>tt0016750</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>USA</td>
+      <td>NaN</td>
+      <td>Julia Hechler</td>
+      <td>English</td>
+      <td>A Gift introduces Samuel Green, Washington Sta...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>27 May 2013</td>
+      <td>2 min</td>
+      <td>A Gift</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2013</td>
+      <td>tt3405286</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>Sri Lanka</td>
+      <td>NaN</td>
+      <td>Udara Siriruwan</td>
+      <td>Sinhalese</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20 Mar 2014</td>
+      <td>23 min</td>
+      <td>Journey</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>2014</td>
+      <td>tt3816698</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General info</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 178687 entries, 0 to 178686
+Data columns (total 18 columns):
+ #   Column      Non-Null Count   Dtype  
+---  ------      --------------   -----  
+ 0   Awards      20340 non-null   object 
+ 1   Country     165998 non-null  object 
+ 2   DVD         15949 non-null   object 
+ 3   Director    151353 non-null  object 
+ 4   Language    153196 non-null  object 
+ 5   Plot        97476 non-null   object 
+ 6   Poster      48414 non-null   object 
+ 7   Production  16446 non-null   object 
+ 8   Rated       23906 non-null   object 
+ 9   Released    116974 non-null  object 
+ 10  Runtime     119497 non-null  object 
+ 11  Title       178686 non-null  object 
+ 12  Type        178686 non-null  object 
+ 13  Website     6747 non-null    object 
+ 14  Year        178686 non-null  object 
+ 15  imdbID      178686 non-null  object 
+ 16  imdbRating  62073 non-null   float64
+ 17  imdbVotes   62029 non-null   object 
+dtypes: float64(1), object(17)
+memory usage: 24.5+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Description on some columns</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Awards</th>
+      <th>Country</th>
+      <th>DVD</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Plot</th>
+      <th>Poster</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Website</th>
+      <th>Year</th>
+      <th>imdbID</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>20340</td>
+      <td>165998</td>
+      <td>15949</td>
+      <td>151353</td>
+      <td>153196</td>
+      <td>97476</td>
+      <td>48414</td>
+      <td>16446</td>
+      <td>23906</td>
+      <td>116974</td>
+      <td>119497</td>
+      <td>178686</td>
+      <td>178686</td>
+      <td>6747</td>
+      <td>178686</td>
+      <td>178686</td>
+      <td>62073.000000</td>
+      <td>62029</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>1946</td>
+      <td>3799</td>
+      <td>2586</td>
+      <td>92410</td>
+      <td>2519</td>
+      <td>97166</td>
+      <td>48209</td>
+      <td>4815</td>
+      <td>80</td>
+      <td>25146</td>
+      <td>535</td>
+      <td>158218</td>
+      <td>2</td>
+      <td>6240</td>
+      <td>265</td>
+      <td>178686</td>
+      <td>NaN</td>
+      <td>8538</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>1 nomination.</td>
+      <td>USA</td>
+      <td>29 Mar 2005</td>
+      <td>Jim Powers</td>
+      <td>English</td>
+      <td>Scenes of the coronation ceremonies of King Ed...</td>
+      <td>http://ia.media-imdb.com/images/M/MV5BMTI4NDcz...</td>
+      <td>Paramount Pictures</td>
+      <td>R</td>
+      <td>01 May 2015</td>
+      <td>90 min</td>
+      <td>Alone</td>
+      <td>movie</td>
+      <td>http://www.phase4films.com/</td>
+      <td>2015</td>
+      <td>tt1557672</td>
+      <td>NaN</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>4134</td>
+      <td>93426</td>
+      <td>82</td>
+      <td>151</td>
+      <td>117809</td>
+      <td>12</td>
+      <td>8</td>
+      <td>414</td>
+      <td>5115</td>
+      <td>173</td>
+      <td>4391</td>
+      <td>84</td>
+      <td>178665</td>
+      <td>26</td>
+      <td>9543</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>3143</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.416236</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.360472</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.600000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6.500000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>7.300000</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10.000000</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span> <span class="o">=</span> <span class="n">movies</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Awards&#39;</span><span class="p">,</span><span class="s1">&#39;DVD&#39;</span><span class="p">,</span><span class="s1">&#39;Plot&#39;</span><span class="p">,</span><span class="s1">&#39;Poster&#39;</span><span class="p">,</span><span class="s1">&#39;Website&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Checking for null values</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Country        12689
+Director       27334
+Language       25491
+Production    162241
+Rated         154781
+Released       61713
+Runtime        59190
+Title              1
+Type               1
+Year               1
+imdbID             1
+imdbRating    116614
+imdbVotes     116658
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Checking for duplicated values</span>
+<span class="n">movies</span><span class="p">[</span><span class="n">movies</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s1">&#39;imdbID&#39;</span><span class="p">],</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>imdbID</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleaning data</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;imdbID&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get info again</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 178686 entries, 0 to 178686
+Data columns (total 13 columns):
+ #   Column      Non-Null Count   Dtype  
+---  ------      --------------   -----  
+ 0   Country     165998 non-null  object 
+ 1   Director    151353 non-null  object 
+ 2   Language    153196 non-null  object 
+ 3   Production  16446 non-null   object 
+ 4   Rated       23906 non-null   object 
+ 5   Released    116974 non-null  object 
+ 6   Runtime     119497 non-null  object 
+ 7   Title       178686 non-null  object 
+ 8   Type        178686 non-null  object 
+ 9   Year        178686 non-null  object 
+ 10  imdbID      178686 non-null  object 
+ 11  imdbRating  62073 non-null   float64
+ 12  imdbVotes   62029 non-null   object 
+dtypes: float64(1), object(12)
+memory usage: 19.1+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change some types to categories</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">Language</span> <span class="o">=</span> <span class="n">movies</span><span class="o">.</span><span class="n">Language</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">Rated</span> <span class="o">=</span> <span class="n">movies</span><span class="o">.</span><span class="n">Rated</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">movies</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert year to integer</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;integer&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert runtime to integer</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; min&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;integer&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert votes count to integer</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">],</span><span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert Released to datetime</span>
+<span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Released&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;Released&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get info again</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 178686 entries, 0 to 178686
+Data columns (total 13 columns):
+ #   Column      Non-Null Count   Dtype         
+---  ------      --------------   -----         
+ 0   Country     165998 non-null  object        
+ 1   Director    151353 non-null  object        
+ 2   Language    153196 non-null  category      
+ 3   Production  16446 non-null   object        
+ 4   Rated       23906 non-null   category      
+ 5   Released    0 non-null       datetime64[ns]
+ 6   Runtime     178686 non-null  int32         
+ 7   Title       178686 non-null  object        
+ 8   Type        178686 non-null  category      
+ 9   Year        178686 non-null  int32         
+ 10  imdbID      178686 non-null  object        
+ 11  imdbRating  62073 non-null   float64       
+ 12  imdbVotes   178686 non-null  int32         
+dtypes: category(3), datetime64[ns](1), float64(1), int32(3), object(5)
+memory usage: 13.7+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Description on some columns again</span>
+<span class="n">movies</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>imdbID</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>165998</td>
+      <td>151353</td>
+      <td>153196</td>
+      <td>16446</td>
+      <td>23906</td>
+      <td>0</td>
+      <td>178686.000000</td>
+      <td>178686</td>
+      <td>178686</td>
+      <td>178686.000000</td>
+      <td>178686</td>
+      <td>62073.000000</td>
+      <td>1.786860e+05</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>3799</td>
+      <td>92410</td>
+      <td>2519</td>
+      <td>4815</td>
+      <td>80</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>158218</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>178686</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>USA</td>
+      <td>Jim Powers</td>
+      <td>English</td>
+      <td>Paramount Pictures</td>
+      <td>R</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Alone</td>
+      <td>movie</td>
+      <td>NaN</td>
+      <td>tt1557672</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>93426</td>
+      <td>151</td>
+      <td>117809</td>
+      <td>414</td>
+      <td>5115</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>84</td>
+      <td>178665</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>36.048571</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1992.561661</td>
+      <td>NaN</td>
+      <td>6.416236</td>
+      <td>2.674464e+03</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>45.515070</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>33.032625</td>
+      <td>NaN</td>
+      <td>1.360472</td>
+      <td>2.877722e+04</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>1.000000</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1989.000000</td>
+      <td>NaN</td>
+      <td>5.600000</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>12.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2007.000000</td>
+      <td>NaN</td>
+      <td>6.500000</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>75.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2013.000000</td>
+      <td>NaN</td>
+      <td>7.300000</td>
+      <td>1.300000e+01</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>964.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2023.000000</td>
+      <td>NaN</td>
+      <td>10.000000</td>
+      <td>1.929977e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voted_movies</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">10000</span><span class="p">]</span>
+<span class="n">voted_movies</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;imdbRating&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">hide_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style  type="text/css" >
+</style><table id="T_ee893_" ><thead>    <tr>        <th class="col_heading level0 col0" >Country</th>        <th class="col_heading level0 col1" >Director</th>        <th class="col_heading level0 col2" >Language</th>        <th class="col_heading level0 col3" >Production</th>        <th class="col_heading level0 col4" >Rated</th>        <th class="col_heading level0 col5" >Released</th>        <th class="col_heading level0 col6" >Runtime</th>        <th class="col_heading level0 col7" >Title</th>        <th class="col_heading level0 col8" >Type</th>        <th class="col_heading level0 col9" >Year</th>        <th class="col_heading level0 col10" >imdbID</th>        <th class="col_heading level0 col11" >imdbRating</th>        <th class="col_heading level0 col12" >imdbVotes</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_ee893_row0_col0" class="data row0 col0" >Turkey</td>
+                        <td id="T_ee893_row0_col1" class="data row0 col1" >Alper Caglar</td>
+                        <td id="T_ee893_row0_col2" class="data row0 col2" >Turkish</td>
+                        <td id="T_ee893_row0_col3" class="data row0 col3" >nan</td>
+                        <td id="T_ee893_row0_col4" class="data row0 col4" >nan</td>
+                        <td id="T_ee893_row0_col5" class="data row0 col5" >NaT</td>
+                        <td id="T_ee893_row0_col6" class="data row0 col6" >135</td>
+                        <td id="T_ee893_row0_col7" class="data row0 col7" >The Mountain II</td>
+                        <td id="T_ee893_row0_col8" class="data row0 col8" >movie</td>
+                        <td id="T_ee893_row0_col9" class="data row0 col9" >2016</td>
+                        <td id="T_ee893_row0_col10" class="data row0 col10" >tt5813916</td>
+                        <td id="T_ee893_row0_col11" class="data row0 col11" >9.600000</td>
+                        <td id="T_ee893_row0_col12" class="data row0 col12" >94751</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row1_col0" class="data row1 col0" >Turkey</td>
+                        <td id="T_ee893_row1_col1" class="data row1 col1" >Ertem Egilmez</td>
+                        <td id="T_ee893_row1_col2" class="data row1 col2" >Turkish</td>
+                        <td id="T_ee893_row1_col3" class="data row1 col3" >nan</td>
+                        <td id="T_ee893_row1_col4" class="data row1 col4" >nan</td>
+                        <td id="T_ee893_row1_col5" class="data row1 col5" >NaT</td>
+                        <td id="T_ee893_row1_col6" class="data row1 col6" >87</td>
+                        <td id="T_ee893_row1_col7" class="data row1 col7" >The Chaos Class</td>
+                        <td id="T_ee893_row1_col8" class="data row1 col8" >movie</td>
+                        <td id="T_ee893_row1_col9" class="data row1 col9" >1975</td>
+                        <td id="T_ee893_row1_col10" class="data row1 col10" >tt0252487</td>
+                        <td id="T_ee893_row1_col11" class="data row1 col11" >9.400000</td>
+                        <td id="T_ee893_row1_col12" class="data row1 col12" >30462</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row2_col0" class="data row2 col0" >USA</td>
+                        <td id="T_ee893_row2_col1" class="data row2 col1" >Frank Darabont</td>
+                        <td id="T_ee893_row2_col2" class="data row2 col2" >English</td>
+                        <td id="T_ee893_row2_col3" class="data row2 col3" >Columbia Pictures</td>
+                        <td id="T_ee893_row2_col4" class="data row2 col4" >R</td>
+                        <td id="T_ee893_row2_col5" class="data row2 col5" >NaT</td>
+                        <td id="T_ee893_row2_col6" class="data row2 col6" >142</td>
+                        <td id="T_ee893_row2_col7" class="data row2 col7" >The Shawshank Redemption</td>
+                        <td id="T_ee893_row2_col8" class="data row2 col8" >movie</td>
+                        <td id="T_ee893_row2_col9" class="data row2 col9" >1994</td>
+                        <td id="T_ee893_row2_col10" class="data row2 col10" >tt0111161</td>
+                        <td id="T_ee893_row2_col11" class="data row2 col11" >9.300000</td>
+                        <td id="T_ee893_row2_col12" class="data row2 col12" >1929977</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row3_col0" class="data row3 col0" >Turkey</td>
+                        <td id="T_ee893_row3_col1" class="data row3 col1" >Can Ulkay</td>
+                        <td id="T_ee893_row3_col2" class="data row3 col2" >Korean, English, Turkish, Chinese</td>
+                        <td id="T_ee893_row3_col3" class="data row3 col3" >nan</td>
+                        <td id="T_ee893_row3_col4" class="data row3 col4" >nan</td>
+                        <td id="T_ee893_row3_col5" class="data row3 col5" >NaT</td>
+                        <td id="T_ee893_row3_col6" class="data row3 col6" >125</td>
+                        <td id="T_ee893_row3_col7" class="data row3 col7" >Ayla: The Daughter of War</td>
+                        <td id="T_ee893_row3_col8" class="data row3 col8" >movie</td>
+                        <td id="T_ee893_row3_col9" class="data row3 col9" >2017</td>
+                        <td id="T_ee893_row3_col10" class="data row3 col10" >tt6316138</td>
+                        <td id="T_ee893_row3_col11" class="data row3 col11" >9.000000</td>
+                        <td id="T_ee893_row3_col12" class="data row3 col12" >18613</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row4_col0" class="data row4 col0" >USA, UK</td>
+                        <td id="T_ee893_row4_col1" class="data row4 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row4_col2" class="data row4 col2" >English, Mandarin</td>
+                        <td id="T_ee893_row4_col3" class="data row4 col3" >Warner Bros. Pictures/Legendary</td>
+                        <td id="T_ee893_row4_col4" class="data row4 col4" >PG-13</td>
+                        <td id="T_ee893_row4_col5" class="data row4 col5" >NaT</td>
+                        <td id="T_ee893_row4_col6" class="data row4 col6" >152</td>
+                        <td id="T_ee893_row4_col7" class="data row4 col7" >The Dark Knight</td>
+                        <td id="T_ee893_row4_col8" class="data row4 col8" >movie</td>
+                        <td id="T_ee893_row4_col9" class="data row4 col9" >2008</td>
+                        <td id="T_ee893_row4_col10" class="data row4 col10" >tt0468569</td>
+                        <td id="T_ee893_row4_col11" class="data row4 col11" >9.000000</td>
+                        <td id="T_ee893_row4_col12" class="data row4 col12" >1896843</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row5_col0" class="data row5 col0" >Turkey</td>
+                        <td id="T_ee893_row5_col1" class="data row5 col1" >Ertem Egilmez</td>
+                        <td id="T_ee893_row5_col2" class="data row5 col2" >Turkish</td>
+                        <td id="T_ee893_row5_col3" class="data row5 col3" >nan</td>
+                        <td id="T_ee893_row5_col4" class="data row5 col4" >nan</td>
+                        <td id="T_ee893_row5_col5" class="data row5 col5" >NaT</td>
+                        <td id="T_ee893_row5_col6" class="data row5 col6" >80</td>
+                        <td id="T_ee893_row5_col7" class="data row5 col7" >The Foster Brothers</td>
+                        <td id="T_ee893_row5_col8" class="data row5 col8" >movie</td>
+                        <td id="T_ee893_row5_col9" class="data row5 col9" >1976</td>
+                        <td id="T_ee893_row5_col10" class="data row5 col10" >tt0253779</td>
+                        <td id="T_ee893_row5_col11" class="data row5 col11" >9.000000</td>
+                        <td id="T_ee893_row5_col12" class="data row5 col12" >15530</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row6_col0" class="data row6 col0" >USA, New Zealand</td>
+                        <td id="T_ee893_row6_col1" class="data row6 col1" >Peter Jackson</td>
+                        <td id="T_ee893_row6_col2" class="data row6 col2" >English, Quenya, Old English, Sindarin</td>
+                        <td id="T_ee893_row6_col3" class="data row6 col3" >New Line Cinema</td>
+                        <td id="T_ee893_row6_col4" class="data row6 col4" >PG-13</td>
+                        <td id="T_ee893_row6_col5" class="data row6 col5" >NaT</td>
+                        <td id="T_ee893_row6_col6" class="data row6 col6" >201</td>
+                        <td id="T_ee893_row6_col7" class="data row6 col7" >The Lord of the Rings: The Return of the King</td>
+                        <td id="T_ee893_row6_col8" class="data row6 col8" >movie</td>
+                        <td id="T_ee893_row6_col9" class="data row6 col9" >2003</td>
+                        <td id="T_ee893_row6_col10" class="data row6 col10" >tt0167260</td>
+                        <td id="T_ee893_row6_col11" class="data row6 col11" >8.900000</td>
+                        <td id="T_ee893_row6_col12" class="data row6 col12" >1367235</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row7_col0" class="data row7 col0" >USA</td>
+                        <td id="T_ee893_row7_col1" class="data row7 col1" >Quentin Tarantino</td>
+                        <td id="T_ee893_row7_col2" class="data row7 col2" >English, Spanish, French</td>
+                        <td id="T_ee893_row7_col3" class="data row7 col3" >Miramax Films</td>
+                        <td id="T_ee893_row7_col4" class="data row7 col4" >R</td>
+                        <td id="T_ee893_row7_col5" class="data row7 col5" >NaT</td>
+                        <td id="T_ee893_row7_col6" class="data row7 col6" >154</td>
+                        <td id="T_ee893_row7_col7" class="data row7 col7" >Pulp Fiction</td>
+                        <td id="T_ee893_row7_col8" class="data row7 col8" >movie</td>
+                        <td id="T_ee893_row7_col9" class="data row7 col9" >1994</td>
+                        <td id="T_ee893_row7_col10" class="data row7 col10" >tt0110912</td>
+                        <td id="T_ee893_row7_col11" class="data row7 col11" >8.900000</td>
+                        <td id="T_ee893_row7_col12" class="data row7 col12" >1501400</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row8_col0" class="data row8 col0" >USA</td>
+                        <td id="T_ee893_row8_col1" class="data row8 col1" >Steven Spielberg</td>
+                        <td id="T_ee893_row8_col2" class="data row8 col2" >English, Hebrew, German, Polish</td>
+                        <td id="T_ee893_row8_col3" class="data row8 col3" >Universal Pictures</td>
+                        <td id="T_ee893_row8_col4" class="data row8 col4" >R</td>
+                        <td id="T_ee893_row8_col5" class="data row8 col5" >NaT</td>
+                        <td id="T_ee893_row8_col6" class="data row8 col6" >195</td>
+                        <td id="T_ee893_row8_col7" class="data row8 col7" >Schindler's List</td>
+                        <td id="T_ee893_row8_col8" class="data row8 col8" >movie</td>
+                        <td id="T_ee893_row8_col9" class="data row8 col9" >1993</td>
+                        <td id="T_ee893_row8_col10" class="data row8 col10" >tt0108052</td>
+                        <td id="T_ee893_row8_col11" class="data row8 col11" >8.900000</td>
+                        <td id="T_ee893_row8_col12" class="data row8 col12" >989411</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row9_col0" class="data row9 col0" >Turkey</td>
+                        <td id="T_ee893_row9_col1" class="data row9 col1" >Ertem Egilmez</td>
+                        <td id="T_ee893_row9_col2" class="data row9 col2" >Turkish</td>
+                        <td id="T_ee893_row9_col3" class="data row9 col3" >nan</td>
+                        <td id="T_ee893_row9_col4" class="data row9 col4" >nan</td>
+                        <td id="T_ee893_row9_col5" class="data row9 col5" >NaT</td>
+                        <td id="T_ee893_row9_col6" class="data row9 col6" >94</td>
+                        <td id="T_ee893_row9_col7" class="data row9 col7" >The Chaos Class Is Waking Up</td>
+                        <td id="T_ee893_row9_col8" class="data row9 col8" >movie</td>
+                        <td id="T_ee893_row9_col9" class="data row9 col9" >1976</td>
+                        <td id="T_ee893_row9_col10" class="data row9 col10" >tt0252490</td>
+                        <td id="T_ee893_row9_col11" class="data row9 col11" >8.900000</td>
+                        <td id="T_ee893_row9_col12" class="data row9 col12" >14139</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row10_col0" class="data row10 col0" >USA</td>
+                        <td id="T_ee893_row10_col1" class="data row10 col1" >Robert Zemeckis</td>
+                        <td id="T_ee893_row10_col2" class="data row10 col2" >English</td>
+                        <td id="T_ee893_row10_col3" class="data row10 col3" >Paramount Pictures</td>
+                        <td id="T_ee893_row10_col4" class="data row10 col4" >PG-13</td>
+                        <td id="T_ee893_row10_col5" class="data row10 col5" >NaT</td>
+                        <td id="T_ee893_row10_col6" class="data row10 col6" >142</td>
+                        <td id="T_ee893_row10_col7" class="data row10 col7" >Forrest Gump</td>
+                        <td id="T_ee893_row10_col8" class="data row10 col8" >movie</td>
+                        <td id="T_ee893_row10_col9" class="data row10 col9" >1994</td>
+                        <td id="T_ee893_row10_col10" class="data row10 col10" >tt0109830</td>
+                        <td id="T_ee893_row10_col11" class="data row10 col11" >8.800000</td>
+                        <td id="T_ee893_row10_col12" class="data row10 col12" >1449570</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row11_col0" class="data row11 col0" >USA, Germany</td>
+                        <td id="T_ee893_row11_col1" class="data row11 col1" >David Fincher</td>
+                        <td id="T_ee893_row11_col2" class="data row11 col2" >English</td>
+                        <td id="T_ee893_row11_col3" class="data row11 col3" >20th Century Fox</td>
+                        <td id="T_ee893_row11_col4" class="data row11 col4" >R</td>
+                        <td id="T_ee893_row11_col5" class="data row11 col5" >NaT</td>
+                        <td id="T_ee893_row11_col6" class="data row11 col6" >139</td>
+                        <td id="T_ee893_row11_col7" class="data row11 col7" >Fight Club</td>
+                        <td id="T_ee893_row11_col8" class="data row11 col8" >movie</td>
+                        <td id="T_ee893_row11_col9" class="data row11 col9" >1999</td>
+                        <td id="T_ee893_row11_col10" class="data row11 col10" >tt0137523</td>
+                        <td id="T_ee893_row11_col11" class="data row11 col11" >8.800000</td>
+                        <td id="T_ee893_row11_col12" class="data row11 col12" >1541872</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row12_col0" class="data row12 col0" >New Zealand, USA</td>
+                        <td id="T_ee893_row12_col1" class="data row12 col1" >Peter Jackson</td>
+                        <td id="T_ee893_row12_col2" class="data row12 col2" >English, Sindarin</td>
+                        <td id="T_ee893_row12_col3" class="data row12 col3" >New Line Cinema</td>
+                        <td id="T_ee893_row12_col4" class="data row12 col4" >PG-13</td>
+                        <td id="T_ee893_row12_col5" class="data row12 col5" >NaT</td>
+                        <td id="T_ee893_row12_col6" class="data row12 col6" >178</td>
+                        <td id="T_ee893_row12_col7" class="data row12 col7" >The Lord of the Rings: The Fellowship of the Ring</td>
+                        <td id="T_ee893_row12_col8" class="data row12 col8" >movie</td>
+                        <td id="T_ee893_row12_col9" class="data row12 col9" >2001</td>
+                        <td id="T_ee893_row12_col10" class="data row12 col10" >tt0120737</td>
+                        <td id="T_ee893_row12_col11" class="data row12 col11" >8.800000</td>
+                        <td id="T_ee893_row12_col12" class="data row12 col12" >1392593</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row13_col0" class="data row13 col0" >USA, UK</td>
+                        <td id="T_ee893_row13_col1" class="data row13 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row13_col2" class="data row13 col2" >English, Japanese, French</td>
+                        <td id="T_ee893_row13_col3" class="data row13 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row13_col4" class="data row13 col4" >PG-13</td>
+                        <td id="T_ee893_row13_col5" class="data row13 col5" >NaT</td>
+                        <td id="T_ee893_row13_col6" class="data row13 col6" >148</td>
+                        <td id="T_ee893_row13_col7" class="data row13 col7" >Inception</td>
+                        <td id="T_ee893_row13_col8" class="data row13 col8" >movie</td>
+                        <td id="T_ee893_row13_col9" class="data row13 col9" >2010</td>
+                        <td id="T_ee893_row13_col10" class="data row13 col10" >tt1375666</td>
+                        <td id="T_ee893_row13_col11" class="data row13 col11" >8.800000</td>
+                        <td id="T_ee893_row13_col12" class="data row13 col12" >1683454</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row14_col0" class="data row14 col0" >USA</td>
+                        <td id="T_ee893_row14_col1" class="data row14 col1" >Lana Wachowski, Lilly Wachowski</td>
+                        <td id="T_ee893_row14_col2" class="data row14 col2" >English</td>
+                        <td id="T_ee893_row14_col3" class="data row14 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row14_col4" class="data row14 col4" >R</td>
+                        <td id="T_ee893_row14_col5" class="data row14 col5" >NaT</td>
+                        <td id="T_ee893_row14_col6" class="data row14 col6" >136</td>
+                        <td id="T_ee893_row14_col7" class="data row14 col7" >The Matrix</td>
+                        <td id="T_ee893_row14_col8" class="data row14 col8" >movie</td>
+                        <td id="T_ee893_row14_col9" class="data row14 col9" >1999</td>
+                        <td id="T_ee893_row14_col10" class="data row14 col10" >tt0133093</td>
+                        <td id="T_ee893_row14_col11" class="data row14 col11" >8.700000</td>
+                        <td id="T_ee893_row14_col12" class="data row14 col12" >1383532</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row15_col0" class="data row15 col0" >Japan</td>
+                        <td id="T_ee893_row15_col1" class="data row15 col1" >Akira Kurosawa</td>
+                        <td id="T_ee893_row15_col2" class="data row15 col2" >Japanese</td>
+                        <td id="T_ee893_row15_col3" class="data row15 col3" >Columbia Pictures</td>
+                        <td id="T_ee893_row15_col4" class="data row15 col4" >NOT RATED</td>
+                        <td id="T_ee893_row15_col5" class="data row15 col5" >NaT</td>
+                        <td id="T_ee893_row15_col6" class="data row15 col6" >207</td>
+                        <td id="T_ee893_row15_col7" class="data row15 col7" >Seven Samurai</td>
+                        <td id="T_ee893_row15_col8" class="data row15 col8" >movie</td>
+                        <td id="T_ee893_row15_col9" class="data row15 col9" >1954</td>
+                        <td id="T_ee893_row15_col10" class="data row15 col10" >tt0047478</td>
+                        <td id="T_ee893_row15_col11" class="data row15 col11" >8.700000</td>
+                        <td id="T_ee893_row15_col12" class="data row15 col12" >261005</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row16_col0" class="data row16 col0" >USA, New Zealand</td>
+                        <td id="T_ee893_row16_col1" class="data row16 col1" >Peter Jackson</td>
+                        <td id="T_ee893_row16_col2" class="data row16 col2" >English, Sindarin, Old English</td>
+                        <td id="T_ee893_row16_col3" class="data row16 col3" >New Line Cinema</td>
+                        <td id="T_ee893_row16_col4" class="data row16 col4" >PG-13</td>
+                        <td id="T_ee893_row16_col5" class="data row16 col5" >NaT</td>
+                        <td id="T_ee893_row16_col6" class="data row16 col6" >179</td>
+                        <td id="T_ee893_row16_col7" class="data row16 col7" >The Lord of the Rings: The Two Towers</td>
+                        <td id="T_ee893_row16_col8" class="data row16 col8" >movie</td>
+                        <td id="T_ee893_row16_col9" class="data row16 col9" >2002</td>
+                        <td id="T_ee893_row16_col10" class="data row16 col10" >tt0167261</td>
+                        <td id="T_ee893_row16_col11" class="data row16 col11" >8.700000</td>
+                        <td id="T_ee893_row16_col12" class="data row16 col12" >1237719</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row17_col0" class="data row17 col0" >Turkey</td>
+                        <td id="T_ee893_row17_col1" class="data row17 col1" >Atif Yilmaz</td>
+                        <td id="T_ee893_row17_col2" class="data row17 col2" >Turkish</td>
+                        <td id="T_ee893_row17_col3" class="data row17 col3" >nan</td>
+                        <td id="T_ee893_row17_col4" class="data row17 col4" >nan</td>
+                        <td id="T_ee893_row17_col5" class="data row17 col5" >NaT</td>
+                        <td id="T_ee893_row17_col6" class="data row17 col6" >90</td>
+                        <td id="T_ee893_row17_col7" class="data row17 col7" >The Girl with the Red Scarf</td>
+                        <td id="T_ee893_row17_col8" class="data row17 col8" >movie</td>
+                        <td id="T_ee893_row17_col9" class="data row17 col9" >1977</td>
+                        <td id="T_ee893_row17_col10" class="data row17 col10" >tt0263975</td>
+                        <td id="T_ee893_row17_col11" class="data row17 col11" >8.700000</td>
+                        <td id="T_ee893_row17_col12" class="data row17 col12" >12120</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row18_col0" class="data row18 col0" >Federal Republic of Yugoslavia</td>
+                        <td id="T_ee893_row18_col1" class="data row18 col1" >Srdjan Dragojevic</td>
+                        <td id="T_ee893_row18_col2" class="data row18 col2" >Serbian, English</td>
+                        <td id="T_ee893_row18_col3" class="data row18 col3" >nan</td>
+                        <td id="T_ee893_row18_col4" class="data row18 col4" >nan</td>
+                        <td id="T_ee893_row18_col5" class="data row18 col5" >NaT</td>
+                        <td id="T_ee893_row18_col6" class="data row18 col6" >115</td>
+                        <td id="T_ee893_row18_col7" class="data row18 col7" >Pretty Village, Pretty Flame</td>
+                        <td id="T_ee893_row18_col8" class="data row18 col8" >movie</td>
+                        <td id="T_ee893_row18_col9" class="data row18 col9" >1996</td>
+                        <td id="T_ee893_row18_col10" class="data row18 col10" >tt0116860</td>
+                        <td id="T_ee893_row18_col11" class="data row18 col11" >8.700000</td>
+                        <td id="T_ee893_row18_col12" class="data row18 col12" >12028</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row19_col0" class="data row19 col0" >USA</td>
+                        <td id="T_ee893_row19_col1" class="data row19 col1" >Martin Scorsese</td>
+                        <td id="T_ee893_row19_col2" class="data row19 col2" >English, Italian</td>
+                        <td id="T_ee893_row19_col3" class="data row19 col3" >Warner Bros.</td>
+                        <td id="T_ee893_row19_col4" class="data row19 col4" >R</td>
+                        <td id="T_ee893_row19_col5" class="data row19 col5" >NaT</td>
+                        <td id="T_ee893_row19_col6" class="data row19 col6" >146</td>
+                        <td id="T_ee893_row19_col7" class="data row19 col7" >Goodfellas</td>
+                        <td id="T_ee893_row19_col8" class="data row19 col8" >movie</td>
+                        <td id="T_ee893_row19_col9" class="data row19 col9" >1990</td>
+                        <td id="T_ee893_row19_col10" class="data row19 col10" >tt0099685</td>
+                        <td id="T_ee893_row19_col11" class="data row19 col11" >8.700000</td>
+                        <td id="T_ee893_row19_col12" class="data row19 col12" >830904</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row20_col0" class="data row20 col0" >India</td>
+                        <td id="T_ee893_row20_col1" class="data row20 col1" >Anurag Kashyap</td>
+                        <td id="T_ee893_row20_col2" class="data row20 col2" >Hindi</td>
+                        <td id="T_ee893_row20_col3" class="data row20 col3" >Passport</td>
+                        <td id="T_ee893_row20_col4" class="data row20 col4" >NOT RATED</td>
+                        <td id="T_ee893_row20_col5" class="data row20 col5" >NaT</td>
+                        <td id="T_ee893_row20_col6" class="data row20 col6" >143</td>
+                        <td id="T_ee893_row20_col7" class="data row20 col7" >Black Friday</td>
+                        <td id="T_ee893_row20_col8" class="data row20 col8" >movie</td>
+                        <td id="T_ee893_row20_col9" class="data row20 col9" >2004</td>
+                        <td id="T_ee893_row20_col10" class="data row20 col10" >tt0400234</td>
+                        <td id="T_ee893_row20_col11" class="data row20 col11" >8.600000</td>
+                        <td id="T_ee893_row20_col12" class="data row20 col12" >14013</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row21_col0" class="data row21 col0" >USA</td>
+                        <td id="T_ee893_row21_col1" class="data row21 col1" >Kurt Kuenne</td>
+                        <td id="T_ee893_row21_col2" class="data row21 col2" >English</td>
+                        <td id="T_ee893_row21_col3" class="data row21 col3" >Oscilloscope Pictures</td>
+                        <td id="T_ee893_row21_col4" class="data row21 col4" >NOT RATED</td>
+                        <td id="T_ee893_row21_col5" class="data row21 col5" >NaT</td>
+                        <td id="T_ee893_row21_col6" class="data row21 col6" >95</td>
+                        <td id="T_ee893_row21_col7" class="data row21 col7" >Dear Zachary: A Letter to a Son About His Father</td>
+                        <td id="T_ee893_row21_col8" class="data row21 col8" >movie</td>
+                        <td id="T_ee893_row21_col9" class="data row21 col9" >2008</td>
+                        <td id="T_ee893_row21_col10" class="data row21 col10" >tt1152758</td>
+                        <td id="T_ee893_row21_col11" class="data row21 col11" >8.600000</td>
+                        <td id="T_ee893_row21_col12" class="data row21 col12" >26348</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row22_col0" class="data row22 col0" >India</td>
+                        <td id="T_ee893_row22_col1" class="data row22 col1" >Nitesh Tiwari</td>
+                        <td id="T_ee893_row22_col2" class="data row22 col2" >Hindi</td>
+                        <td id="T_ee893_row22_col3" class="data row22 col3" >Aamir Khan Productions</td>
+                        <td id="T_ee893_row22_col4" class="data row22 col4" >NOT RATED</td>
+                        <td id="T_ee893_row22_col5" class="data row22 col5" >NaT</td>
+                        <td id="T_ee893_row22_col6" class="data row22 col6" >161</td>
+                        <td id="T_ee893_row22_col7" class="data row22 col7" >Dangal</td>
+                        <td id="T_ee893_row22_col8" class="data row22 col8" >movie</td>
+                        <td id="T_ee893_row22_col9" class="data row22 col9" >2016</td>
+                        <td id="T_ee893_row22_col10" class="data row22 col10" >tt5074352</td>
+                        <td id="T_ee893_row22_col11" class="data row22 col11" >8.600000</td>
+                        <td id="T_ee893_row22_col12" class="data row22 col12" >84216</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row23_col0" class="data row23 col0" >France</td>
+                        <td id="T_ee893_row23_col1" class="data row23 col1" >Yann Arthus-Bertrand</td>
+                        <td id="T_ee893_row23_col2" class="data row23 col2" >French, English, Russian, Spanish, German</td>
+                        <td id="T_ee893_row23_col3" class="data row23 col3" >FilmBuff</td>
+                        <td id="T_ee893_row23_col4" class="data row23 col4" >NOT RATED</td>
+                        <td id="T_ee893_row23_col5" class="data row23 col5" >NaT</td>
+                        <td id="T_ee893_row23_col6" class="data row23 col6" >120</td>
+                        <td id="T_ee893_row23_col7" class="data row23 col7" >Home</td>
+                        <td id="T_ee893_row23_col8" class="data row23 col8" >movie</td>
+                        <td id="T_ee893_row23_col9" class="data row23 col9" >2009</td>
+                        <td id="T_ee893_row23_col10" class="data row23 col10" >tt1014762</td>
+                        <td id="T_ee893_row23_col11" class="data row23 col11" >8.600000</td>
+                        <td id="T_ee893_row23_col12" class="data row23 col12" >19780</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row24_col0" class="data row24 col0" >France</td>
+                        <td id="T_ee893_row24_col1" class="data row24 col1" >Olivier Nakache, Éric Toledano</td>
+                        <td id="T_ee893_row24_col2" class="data row24 col2" >French, English</td>
+                        <td id="T_ee893_row24_col3" class="data row24 col3" >The Weinstein Company</td>
+                        <td id="T_ee893_row24_col4" class="data row24 col4" >R</td>
+                        <td id="T_ee893_row24_col5" class="data row24 col5" >NaT</td>
+                        <td id="T_ee893_row24_col6" class="data row24 col6" >112</td>
+                        <td id="T_ee893_row24_col7" class="data row24 col7" >The Intouchables</td>
+                        <td id="T_ee893_row24_col8" class="data row24 col8" >movie</td>
+                        <td id="T_ee893_row24_col9" class="data row24 col9" >2011</td>
+                        <td id="T_ee893_row24_col10" class="data row24 col10" >tt1675434</td>
+                        <td id="T_ee893_row24_col11" class="data row24 col11" >8.600000</td>
+                        <td id="T_ee893_row24_col12" class="data row24 col12" >606565</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row25_col0" class="data row25 col0" >USA, UK</td>
+                        <td id="T_ee893_row25_col1" class="data row25 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row25_col2" class="data row25 col2" >English</td>
+                        <td id="T_ee893_row25_col3" class="data row25 col3" >Paramount Pictures</td>
+                        <td id="T_ee893_row25_col4" class="data row25 col4" >PG-13</td>
+                        <td id="T_ee893_row25_col5" class="data row25 col5" >NaT</td>
+                        <td id="T_ee893_row25_col6" class="data row25 col6" >169</td>
+                        <td id="T_ee893_row25_col7" class="data row25 col7" >Interstellar</td>
+                        <td id="T_ee893_row25_col8" class="data row25 col8" >movie</td>
+                        <td id="T_ee893_row25_col9" class="data row25 col9" >2014</td>
+                        <td id="T_ee893_row25_col10" class="data row25 col10" >tt0816692</td>
+                        <td id="T_ee893_row25_col11" class="data row25 col11" >8.600000</td>
+                        <td id="T_ee893_row25_col12" class="data row25 col12" >1150713</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row26_col0" class="data row26 col0" >USA</td>
+                        <td id="T_ee893_row26_col1" class="data row26 col1" >Steven Spielberg</td>
+                        <td id="T_ee893_row26_col2" class="data row26 col2" >English, French, German, Czech</td>
+                        <td id="T_ee893_row26_col3" class="data row26 col3" >Paramount Pictures</td>
+                        <td id="T_ee893_row26_col4" class="data row26 col4" >R</td>
+                        <td id="T_ee893_row26_col5" class="data row26 col5" >NaT</td>
+                        <td id="T_ee893_row26_col6" class="data row26 col6" >169</td>
+                        <td id="T_ee893_row26_col7" class="data row26 col7" >Saving Private Ryan</td>
+                        <td id="T_ee893_row26_col8" class="data row26 col8" >movie</td>
+                        <td id="T_ee893_row26_col9" class="data row26 col9" >1998</td>
+                        <td id="T_ee893_row26_col10" class="data row26 col10" >tt0120815</td>
+                        <td id="T_ee893_row26_col11" class="data row26 col11" >8.600000</td>
+                        <td id="T_ee893_row26_col12" class="data row26 col12" >1009148</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row27_col0" class="data row27 col0" >France</td>
+                        <td id="T_ee893_row27_col1" class="data row27 col1" >Alain Resnais</td>
+                        <td id="T_ee893_row27_col2" class="data row27 col2" >French</td>
+                        <td id="T_ee893_row27_col3" class="data row27 col3" >Argos Films</td>
+                        <td id="T_ee893_row27_col4" class="data row27 col4" >NOT RATED</td>
+                        <td id="T_ee893_row27_col5" class="data row27 col5" >NaT</td>
+                        <td id="T_ee893_row27_col6" class="data row27 col6" >32</td>
+                        <td id="T_ee893_row27_col7" class="data row27 col7" >Night and Fog</td>
+                        <td id="T_ee893_row27_col8" class="data row27 col8" >movie</td>
+                        <td id="T_ee893_row27_col9" class="data row27 col9" >1956</td>
+                        <td id="T_ee893_row27_col10" class="data row27 col10" >tt0048434</td>
+                        <td id="T_ee893_row27_col11" class="data row27 col11" >8.600000</td>
+                        <td id="T_ee893_row27_col12" class="data row27 col12" >14474</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row28_col0" class="data row28 col0" >USA</td>
+                        <td id="T_ee893_row28_col1" class="data row28 col1" >Jonathan Demme</td>
+                        <td id="T_ee893_row28_col2" class="data row28 col2" >English</td>
+                        <td id="T_ee893_row28_col3" class="data row28 col3" >Orion Pictures Corporation</td>
+                        <td id="T_ee893_row28_col4" class="data row28 col4" >R</td>
+                        <td id="T_ee893_row28_col5" class="data row28 col5" >NaT</td>
+                        <td id="T_ee893_row28_col6" class="data row28 col6" >118</td>
+                        <td id="T_ee893_row28_col7" class="data row28 col7" >The Silence of the Lambs</td>
+                        <td id="T_ee893_row28_col8" class="data row28 col8" >movie</td>
+                        <td id="T_ee893_row28_col9" class="data row28 col9" >1991</td>
+                        <td id="T_ee893_row28_col10" class="data row28 col10" >tt0102926</td>
+                        <td id="T_ee893_row28_col11" class="data row28 col11" >8.600000</td>
+                        <td id="T_ee893_row28_col12" class="data row28 col12" >1035624</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row29_col0" class="data row29 col0" >USA, Germany</td>
+                        <td id="T_ee893_row29_col1" class="data row29 col1" >Bryan Singer</td>
+                        <td id="T_ee893_row29_col2" class="data row29 col2" >English, Hungarian, Spanish, French</td>
+                        <td id="T_ee893_row29_col3" class="data row29 col3" >Gramercy Pictures</td>
+                        <td id="T_ee893_row29_col4" class="data row29 col4" >R</td>
+                        <td id="T_ee893_row29_col5" class="data row29 col5" >NaT</td>
+                        <td id="T_ee893_row29_col6" class="data row29 col6" >106</td>
+                        <td id="T_ee893_row29_col7" class="data row29 col7" >The Usual Suspects</td>
+                        <td id="T_ee893_row29_col8" class="data row29 col8" >movie</td>
+                        <td id="T_ee893_row29_col9" class="data row29 col9" >1995</td>
+                        <td id="T_ee893_row29_col10" class="data row29 col10" >tt0114814</td>
+                        <td id="T_ee893_row29_col11" class="data row29 col11" >8.600000</td>
+                        <td id="T_ee893_row29_col12" class="data row29 col12" >839909</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row30_col0" class="data row30 col0" >Japan</td>
+                        <td id="T_ee893_row30_col1" class="data row30 col1" >Hayao Miyazaki, Kirk Wise</td>
+                        <td id="T_ee893_row30_col2" class="data row30 col2" >Japanese, English</td>
+                        <td id="T_ee893_row30_col3" class="data row30 col3" >Walt Disney Pictures</td>
+                        <td id="T_ee893_row30_col4" class="data row30 col4" >PG</td>
+                        <td id="T_ee893_row30_col5" class="data row30 col5" >NaT</td>
+                        <td id="T_ee893_row30_col6" class="data row30 col6" >125</td>
+                        <td id="T_ee893_row30_col7" class="data row30 col7" >Spirited Away</td>
+                        <td id="T_ee893_row30_col8" class="data row30 col8" >movie</td>
+                        <td id="T_ee893_row30_col9" class="data row30 col9" >2001</td>
+                        <td id="T_ee893_row30_col10" class="data row30 col10" >tt0245429</td>
+                        <td id="T_ee893_row30_col11" class="data row30 col11" >8.600000</td>
+                        <td id="T_ee893_row30_col12" class="data row30 col12" >501953</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row31_col0" class="data row31 col0" >France</td>
+                        <td id="T_ee893_row31_col1" class="data row31 col1" >Luc Besson</td>
+                        <td id="T_ee893_row31_col2" class="data row31 col2" >English, Italian, French</td>
+                        <td id="T_ee893_row31_col3" class="data row31 col3" >Columbia Pictures</td>
+                        <td id="T_ee893_row31_col4" class="data row31 col4" >R</td>
+                        <td id="T_ee893_row31_col5" class="data row31 col5" >NaT</td>
+                        <td id="T_ee893_row31_col6" class="data row31 col6" >110</td>
+                        <td id="T_ee893_row31_col7" class="data row31 col7" >Léon: The Professional</td>
+                        <td id="T_ee893_row31_col8" class="data row31 col8" >movie</td>
+                        <td id="T_ee893_row31_col9" class="data row31 col9" >1994</td>
+                        <td id="T_ee893_row31_col10" class="data row31 col10" >tt0110413</td>
+                        <td id="T_ee893_row31_col11" class="data row31 col11" >8.600000</td>
+                        <td id="T_ee893_row31_col12" class="data row31 col12" >837780</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row32_col0" class="data row32 col0" >Italy</td>
+                        <td id="T_ee893_row32_col1" class="data row32 col1" >Roberto Benigni</td>
+                        <td id="T_ee893_row32_col2" class="data row32 col2" >Italian, German, English</td>
+                        <td id="T_ee893_row32_col3" class="data row32 col3" >Miramax</td>
+                        <td id="T_ee893_row32_col4" class="data row32 col4" >PG-13</td>
+                        <td id="T_ee893_row32_col5" class="data row32 col5" >NaT</td>
+                        <td id="T_ee893_row32_col6" class="data row32 col6" >116</td>
+                        <td id="T_ee893_row32_col7" class="data row32 col7" >Life Is Beautiful</td>
+                        <td id="T_ee893_row32_col8" class="data row32 col8" >movie</td>
+                        <td id="T_ee893_row32_col9" class="data row32 col9" >1997</td>
+                        <td id="T_ee893_row32_col10" class="data row32 col10" >tt0118799</td>
+                        <td id="T_ee893_row32_col11" class="data row32 col11" >8.600000</td>
+                        <td id="T_ee893_row32_col12" class="data row32 col12" >498359</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row33_col0" class="data row33 col0" >USA, UK</td>
+                        <td id="T_ee893_row33_col1" class="data row33 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row33_col2" class="data row33 col2" >English</td>
+                        <td id="T_ee893_row33_col3" class="data row33 col3" >Buena Vista Pictures</td>
+                        <td id="T_ee893_row33_col4" class="data row33 col4" >PG-13</td>
+                        <td id="T_ee893_row33_col5" class="data row33 col5" >NaT</td>
+                        <td id="T_ee893_row33_col6" class="data row33 col6" >130</td>
+                        <td id="T_ee893_row33_col7" class="data row33 col7" >The Prestige</td>
+                        <td id="T_ee893_row33_col8" class="data row33 col8" >movie</td>
+                        <td id="T_ee893_row33_col9" class="data row33 col9" >2006</td>
+                        <td id="T_ee893_row33_col10" class="data row33 col10" >tt0482571</td>
+                        <td id="T_ee893_row33_col11" class="data row33 col11" >8.500000</td>
+                        <td id="T_ee893_row33_col12" class="data row33 col12" >972592</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row34_col0" class="data row34 col0" >USA</td>
+                        <td id="T_ee893_row34_col1" class="data row34 col1" >Lee Unkrich, Adrian Molina(co-director)</td>
+                        <td id="T_ee893_row34_col2" class="data row34 col2" >English, Spanish</td>
+                        <td id="T_ee893_row34_col3" class="data row34 col3" >Disney/Pixar</td>
+                        <td id="T_ee893_row34_col4" class="data row34 col4" >PG</td>
+                        <td id="T_ee893_row34_col5" class="data row34 col5" >NaT</td>
+                        <td id="T_ee893_row34_col6" class="data row34 col6" >105</td>
+                        <td id="T_ee893_row34_col7" class="data row34 col7" >Coco</td>
+                        <td id="T_ee893_row34_col8" class="data row34 col8" >movie</td>
+                        <td id="T_ee893_row34_col9" class="data row34 col9" >2017</td>
+                        <td id="T_ee893_row34_col10" class="data row34 col10" >tt2380307</td>
+                        <td id="T_ee893_row34_col11" class="data row34 col11" >8.500000</td>
+                        <td id="T_ee893_row34_col12" class="data row34 col12" >115215</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row35_col0" class="data row35 col0" >USA, Hong Kong</td>
+                        <td id="T_ee893_row35_col1" class="data row35 col1" >Martin Scorsese</td>
+                        <td id="T_ee893_row35_col2" class="data row35 col2" >English, Cantonese</td>
+                        <td id="T_ee893_row35_col3" class="data row35 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row35_col4" class="data row35 col4" >R</td>
+                        <td id="T_ee893_row35_col5" class="data row35 col5" >NaT</td>
+                        <td id="T_ee893_row35_col6" class="data row35 col6" >151</td>
+                        <td id="T_ee893_row35_col7" class="data row35 col7" >The Departed</td>
+                        <td id="T_ee893_row35_col8" class="data row35 col8" >movie</td>
+                        <td id="T_ee893_row35_col9" class="data row35 col9" >2006</td>
+                        <td id="T_ee893_row35_col10" class="data row35 col10" >tt0407887</td>
+                        <td id="T_ee893_row35_col11" class="data row35 col11" >8.500000</td>
+                        <td id="T_ee893_row35_col12" class="data row35 col12" >993784</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row36_col0" class="data row36 col0" >USA</td>
+                        <td id="T_ee893_row36_col1" class="data row36 col1" >Damien Chazelle</td>
+                        <td id="T_ee893_row36_col2" class="data row36 col2" >English</td>
+                        <td id="T_ee893_row36_col3" class="data row36 col3" >Sony Pictures Classics</td>
+                        <td id="T_ee893_row36_col4" class="data row36 col4" >R</td>
+                        <td id="T_ee893_row36_col5" class="data row36 col5" >NaT</td>
+                        <td id="T_ee893_row36_col6" class="data row36 col6" >107</td>
+                        <td id="T_ee893_row36_col7" class="data row36 col7" >Whiplash</td>
+                        <td id="T_ee893_row36_col8" class="data row36 col8" >movie</td>
+                        <td id="T_ee893_row36_col9" class="data row36 col9" >2014</td>
+                        <td id="T_ee893_row36_col10" class="data row36 col10" >tt2582802</td>
+                        <td id="T_ee893_row36_col11" class="data row36 col11" >8.500000</td>
+                        <td id="T_ee893_row36_col12" class="data row36 col12" >531674</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row37_col0" class="data row37 col0" >USA</td>
+                        <td id="T_ee893_row37_col1" class="data row37 col1" >Robert Zemeckis</td>
+                        <td id="T_ee893_row37_col2" class="data row37 col2" >English</td>
+                        <td id="T_ee893_row37_col3" class="data row37 col3" >Universal Pictures</td>
+                        <td id="T_ee893_row37_col4" class="data row37 col4" >PG</td>
+                        <td id="T_ee893_row37_col5" class="data row37 col5" >NaT</td>
+                        <td id="T_ee893_row37_col6" class="data row37 col6" >116</td>
+                        <td id="T_ee893_row37_col7" class="data row37 col7" >Back to the Future</td>
+                        <td id="T_ee893_row37_col8" class="data row37 col8" >movie</td>
+                        <td id="T_ee893_row37_col9" class="data row37 col9" >1985</td>
+                        <td id="T_ee893_row37_col10" class="data row37 col10" >tt0088763</td>
+                        <td id="T_ee893_row37_col11" class="data row37 col11" >8.500000</td>
+                        <td id="T_ee893_row37_col12" class="data row37 col12" >850206</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row38_col0" class="data row38 col0" >USA</td>
+                        <td id="T_ee893_row38_col1" class="data row38 col1" >Louie Psihoyos</td>
+                        <td id="T_ee893_row38_col2" class="data row38 col2" >English, Japanese</td>
+                        <td id="T_ee893_row38_col3" class="data row38 col3" >Roadside Attractions</td>
+                        <td id="T_ee893_row38_col4" class="data row38 col4" >PG-13</td>
+                        <td id="T_ee893_row38_col5" class="data row38 col5" >NaT</td>
+                        <td id="T_ee893_row38_col6" class="data row38 col6" >92</td>
+                        <td id="T_ee893_row38_col7" class="data row38 col7" >The Cove</td>
+                        <td id="T_ee893_row38_col8" class="data row38 col8" >movie</td>
+                        <td id="T_ee893_row38_col9" class="data row38 col9" >2009</td>
+                        <td id="T_ee893_row38_col10" class="data row38 col10" >tt1313104</td>
+                        <td id="T_ee893_row38_col11" class="data row38 col11" >8.500000</td>
+                        <td id="T_ee893_row38_col12" class="data row38 col12" >43299</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row39_col0" class="data row39 col0" >USA</td>
+                        <td id="T_ee893_row39_col1" class="data row39 col1" >Tony Kaye</td>
+                        <td id="T_ee893_row39_col2" class="data row39 col2" >English</td>
+                        <td id="T_ee893_row39_col3" class="data row39 col3" >New Line Cinema</td>
+                        <td id="T_ee893_row39_col4" class="data row39 col4" >R</td>
+                        <td id="T_ee893_row39_col5" class="data row39 col5" >NaT</td>
+                        <td id="T_ee893_row39_col6" class="data row39 col6" >119</td>
+                        <td id="T_ee893_row39_col7" class="data row39 col7" >American History X</td>
+                        <td id="T_ee893_row39_col8" class="data row39 col8" >movie</td>
+                        <td id="T_ee893_row39_col9" class="data row39 col9" >1998</td>
+                        <td id="T_ee893_row39_col10" class="data row39 col10" >tt0120586</td>
+                        <td id="T_ee893_row39_col11" class="data row39 col11" >8.500000</td>
+                        <td id="T_ee893_row39_col12" class="data row39 col12" >887789</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row40_col0" class="data row40 col0" >USA</td>
+                        <td id="T_ee893_row40_col1" class="data row40 col1" >Roger Allers, Rob Minkoff</td>
+                        <td id="T_ee893_row40_col2" class="data row40 col2" >English, Swahili, Xhosa, Zulu</td>
+                        <td id="T_ee893_row40_col3" class="data row40 col3" >Buena Vista</td>
+                        <td id="T_ee893_row40_col4" class="data row40 col4" >G</td>
+                        <td id="T_ee893_row40_col5" class="data row40 col5" >NaT</td>
+                        <td id="T_ee893_row40_col6" class="data row40 col6" >88</td>
+                        <td id="T_ee893_row40_col7" class="data row40 col7" >The Lion King</td>
+                        <td id="T_ee893_row40_col8" class="data row40 col8" >movie</td>
+                        <td id="T_ee893_row40_col9" class="data row40 col9" >1994</td>
+                        <td id="T_ee893_row40_col10" class="data row40 col10" >tt0110357</td>
+                        <td id="T_ee893_row40_col11" class="data row40 col11" >8.500000</td>
+                        <td id="T_ee893_row40_col12" class="data row40 col12" >754882</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row41_col0" class="data row41 col0" >USA</td>
+                        <td id="T_ee893_row41_col1" class="data row41 col1" >Charles Chaplin</td>
+                        <td id="T_ee893_row41_col2" class="data row41 col2" >English, Esperanto</td>
+                        <td id="T_ee893_row41_col3" class="data row41 col3" >Criterion Collection</td>
+                        <td id="T_ee893_row41_col4" class="data row41 col4" >G</td>
+                        <td id="T_ee893_row41_col5" class="data row41 col5" >NaT</td>
+                        <td id="T_ee893_row41_col6" class="data row41 col6" >125</td>
+                        <td id="T_ee893_row41_col7" class="data row41 col7" >The Great Dictator</td>
+                        <td id="T_ee893_row41_col8" class="data row41 col8" >movie</td>
+                        <td id="T_ee893_row41_col9" class="data row41 col9" >1940</td>
+                        <td id="T_ee893_row41_col10" class="data row41 col10" >tt0032553</td>
+                        <td id="T_ee893_row41_col11" class="data row41 col11" >8.500000</td>
+                        <td id="T_ee893_row41_col12" class="data row41 col12" >163315</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row42_col0" class="data row42 col0" >USA, UK</td>
+                        <td id="T_ee893_row42_col1" class="data row42 col1" >Stanley Kubrick</td>
+                        <td id="T_ee893_row42_col2" class="data row42 col2" >English, Russian</td>
+                        <td id="T_ee893_row42_col3" class="data row42 col3" >Sony Pictures</td>
+                        <td id="T_ee893_row42_col4" class="data row42 col4" >PG</td>
+                        <td id="T_ee893_row42_col5" class="data row42 col5" >NaT</td>
+                        <td id="T_ee893_row42_col6" class="data row42 col6" >95</td>
+                        <td id="T_ee893_row42_col7" class="data row42 col7" >Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb</td>
+                        <td id="T_ee893_row42_col8" class="data row42 col8" >movie</td>
+                        <td id="T_ee893_row42_col9" class="data row42 col9" >1964</td>
+                        <td id="T_ee893_row42_col10" class="data row42 col10" >tt0057012</td>
+                        <td id="T_ee893_row42_col11" class="data row42 col11" >8.500000</td>
+                        <td id="T_ee893_row42_col12" class="data row42 col12" >387342</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row43_col0" class="data row43 col0" >USA, UK</td>
+                        <td id="T_ee893_row43_col1" class="data row43 col1" >Ridley Scott</td>
+                        <td id="T_ee893_row43_col2" class="data row43 col2" >English</td>
+                        <td id="T_ee893_row43_col3" class="data row43 col3" >Dreamworks Distribution LLC</td>
+                        <td id="T_ee893_row43_col4" class="data row43 col4" >R</td>
+                        <td id="T_ee893_row43_col5" class="data row43 col5" >NaT</td>
+                        <td id="T_ee893_row43_col6" class="data row43 col6" >155</td>
+                        <td id="T_ee893_row43_col7" class="data row43 col7" >Gladiator</td>
+                        <td id="T_ee893_row43_col8" class="data row43 col8" >movie</td>
+                        <td id="T_ee893_row43_col9" class="data row43 col9" >2000</td>
+                        <td id="T_ee893_row43_col10" class="data row43 col10" >tt0172495</td>
+                        <td id="T_ee893_row43_col11" class="data row43 col11" >8.500000</td>
+                        <td id="T_ee893_row43_col12" class="data row43 col12" >1115842</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row44_col0" class="data row44 col0" >France, Poland, Germany, UK, USA</td>
+                        <td id="T_ee893_row44_col1" class="data row44 col1" >Roman Polanski</td>
+                        <td id="T_ee893_row44_col2" class="data row44 col2" >English, German, Russian</td>
+                        <td id="T_ee893_row44_col3" class="data row44 col3" >Focus Features</td>
+                        <td id="T_ee893_row44_col4" class="data row44 col4" >R</td>
+                        <td id="T_ee893_row44_col5" class="data row44 col5" >NaT</td>
+                        <td id="T_ee893_row44_col6" class="data row44 col6" >150</td>
+                        <td id="T_ee893_row44_col7" class="data row44 col7" >The Pianist</td>
+                        <td id="T_ee893_row44_col8" class="data row44 col8" >movie</td>
+                        <td id="T_ee893_row44_col9" class="data row44 col9" >2002</td>
+                        <td id="T_ee893_row44_col10" class="data row44 col10" >tt0253474</td>
+                        <td id="T_ee893_row44_col11" class="data row44 col11" >8.500000</td>
+                        <td id="T_ee893_row44_col12" class="data row44 col12" >577163</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row45_col0" class="data row45 col0" >USA</td>
+                        <td id="T_ee893_row45_col1" class="data row45 col1" >Frank Darabont</td>
+                        <td id="T_ee893_row45_col2" class="data row45 col2" >English, French</td>
+                        <td id="T_ee893_row45_col3" class="data row45 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row45_col4" class="data row45 col4" >R</td>
+                        <td id="T_ee893_row45_col5" class="data row45 col5" >NaT</td>
+                        <td id="T_ee893_row45_col6" class="data row45 col6" >189</td>
+                        <td id="T_ee893_row45_col7" class="data row45 col7" >The Green Mile</td>
+                        <td id="T_ee893_row45_col8" class="data row45 col8" >movie</td>
+                        <td id="T_ee893_row45_col9" class="data row45 col9" >1999</td>
+                        <td id="T_ee893_row45_col10" class="data row45 col10" >tt0120689</td>
+                        <td id="T_ee893_row45_col11" class="data row45 col11" >8.500000</td>
+                        <td id="T_ee893_row45_col12" class="data row45 col12" >916580</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row46_col0" class="data row46 col0" >UK, USA</td>
+                        <td id="T_ee893_row46_col1" class="data row46 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row46_col2" class="data row46 col2" >English, Arabic</td>
+                        <td id="T_ee893_row46_col3" class="data row46 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row46_col4" class="data row46 col4" >PG-13</td>
+                        <td id="T_ee893_row46_col5" class="data row46 col5" >NaT</td>
+                        <td id="T_ee893_row46_col6" class="data row46 col6" >164</td>
+                        <td id="T_ee893_row46_col7" class="data row46 col7" >The Dark Knight Rises</td>
+                        <td id="T_ee893_row46_col8" class="data row46 col8" >movie</td>
+                        <td id="T_ee893_row46_col9" class="data row46 col9" >2012</td>
+                        <td id="T_ee893_row46_col10" class="data row46 col10" >tt1345836</td>
+                        <td id="T_ee893_row46_col11" class="data row46 col11" >8.400000</td>
+                        <td id="T_ee893_row46_col12" class="data row46 col12" >1288631</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row47_col0" class="data row47 col0" >Iran, France</td>
+                        <td id="T_ee893_row47_col1" class="data row47 col1" >Asghar Farhadi</td>
+                        <td id="T_ee893_row47_col2" class="data row47 col2" >Persian</td>
+                        <td id="T_ee893_row47_col3" class="data row47 col3" >Sony Pictures Classics</td>
+                        <td id="T_ee893_row47_col4" class="data row47 col4" >PG-13</td>
+                        <td id="T_ee893_row47_col5" class="data row47 col5" >NaT</td>
+                        <td id="T_ee893_row47_col6" class="data row47 col6" >123</td>
+                        <td id="T_ee893_row47_col7" class="data row47 col7" >A Separation</td>
+                        <td id="T_ee893_row47_col8" class="data row47 col8" >movie</td>
+                        <td id="T_ee893_row47_col9" class="data row47 col9" >2011</td>
+                        <td id="T_ee893_row47_col10" class="data row47 col10" >tt1832382</td>
+                        <td id="T_ee893_row47_col11" class="data row47 col11" >8.400000</td>
+                        <td id="T_ee893_row47_col12" class="data row47 col12" >175861</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row48_col0" class="data row48 col0" >India</td>
+                        <td id="T_ee893_row48_col1" class="data row48 col1" >Rajkumar Hirani</td>
+                        <td id="T_ee893_row48_col2" class="data row48 col2" >Hindi, English</td>
+                        <td id="T_ee893_row48_col3" class="data row48 col3" >Big Pictures</td>
+                        <td id="T_ee893_row48_col4" class="data row48 col4" >PG-13</td>
+                        <td id="T_ee893_row48_col5" class="data row48 col5" >NaT</td>
+                        <td id="T_ee893_row48_col6" class="data row48 col6" >170</td>
+                        <td id="T_ee893_row48_col7" class="data row48 col7" >3 Idiots</td>
+                        <td id="T_ee893_row48_col8" class="data row48 col8" >movie</td>
+                        <td id="T_ee893_row48_col9" class="data row48 col9" >2009</td>
+                        <td id="T_ee893_row48_col10" class="data row48 col10" >tt1187043</td>
+                        <td id="T_ee893_row48_col11" class="data row48 col11" >8.400000</td>
+                        <td id="T_ee893_row48_col12" class="data row48 col12" >265228</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row49_col0" class="data row49 col0" >Soviet Union</td>
+                        <td id="T_ee893_row49_col1" class="data row49 col1" >Leonid Gayday</td>
+                        <td id="T_ee893_row49_col2" class="data row49 col2" >Russian, German</td>
+                        <td id="T_ee893_row49_col3" class="data row49 col3" >nan</td>
+                        <td id="T_ee893_row49_col4" class="data row49 col4" >TV-G</td>
+                        <td id="T_ee893_row49_col5" class="data row49 col5" >NaT</td>
+                        <td id="T_ee893_row49_col6" class="data row49 col6" >93</td>
+                        <td id="T_ee893_row49_col7" class="data row49 col7" >Ivan Vasilievich: Back to the Future</td>
+                        <td id="T_ee893_row49_col8" class="data row49 col8" >movie</td>
+                        <td id="T_ee893_row49_col9" class="data row49 col9" >1973</td>
+                        <td id="T_ee893_row49_col10" class="data row49 col10" >tt0070233</td>
+                        <td id="T_ee893_row49_col11" class="data row49 col11" >8.400000</td>
+                        <td id="T_ee893_row49_col12" class="data row49 col12" >11963</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row50_col0" class="data row50 col0" >Libya, USA</td>
+                        <td id="T_ee893_row50_col1" class="data row50 col1" >Moustapha Akkad</td>
+                        <td id="T_ee893_row50_col2" class="data row50 col2" >English</td>
+                        <td id="T_ee893_row50_col3" class="data row50 col3" >Anchor Bay Entertainment</td>
+                        <td id="T_ee893_row50_col4" class="data row50 col4" >PG</td>
+                        <td id="T_ee893_row50_col5" class="data row50 col5" >NaT</td>
+                        <td id="T_ee893_row50_col6" class="data row50 col6" >173</td>
+                        <td id="T_ee893_row50_col7" class="data row50 col7" >Lion of the Desert</td>
+                        <td id="T_ee893_row50_col8" class="data row50 col8" >movie</td>
+                        <td id="T_ee893_row50_col9" class="data row50 col9" >1980</td>
+                        <td id="T_ee893_row50_col10" class="data row50 col10" >tt0081059</td>
+                        <td id="T_ee893_row50_col11" class="data row50 col11" >8.400000</td>
+                        <td id="T_ee893_row50_col12" class="data row50 col12" >11396</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row51_col0" class="data row51 col0" >USA</td>
+                        <td id="T_ee893_row51_col1" class="data row51 col1" >Sam Mendes</td>
+                        <td id="T_ee893_row51_col2" class="data row51 col2" >English</td>
+                        <td id="T_ee893_row51_col3" class="data row51 col3" >Dream Works</td>
+                        <td id="T_ee893_row51_col4" class="data row51 col4" >R</td>
+                        <td id="T_ee893_row51_col5" class="data row51 col5" >NaT</td>
+                        <td id="T_ee893_row51_col6" class="data row51 col6" >122</td>
+                        <td id="T_ee893_row51_col7" class="data row51 col7" >American Beauty</td>
+                        <td id="T_ee893_row51_col8" class="data row51 col8" >movie</td>
+                        <td id="T_ee893_row51_col9" class="data row51 col9" >1999</td>
+                        <td id="T_ee893_row51_col10" class="data row51 col10" >tt0169547</td>
+                        <td id="T_ee893_row51_col11" class="data row51 col11" >8.400000</td>
+                        <td id="T_ee893_row51_col12" class="data row51 col12" >930421</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row52_col0" class="data row52 col0" >USA</td>
+                        <td id="T_ee893_row52_col1" class="data row52 col1" >Quentin Tarantino</td>
+                        <td id="T_ee893_row52_col2" class="data row52 col2" >English, German, French, Italian</td>
+                        <td id="T_ee893_row52_col3" class="data row52 col3" >The Weinstein Co.</td>
+                        <td id="T_ee893_row52_col4" class="data row52 col4" >R</td>
+                        <td id="T_ee893_row52_col5" class="data row52 col5" >NaT</td>
+                        <td id="T_ee893_row52_col6" class="data row52 col6" >165</td>
+                        <td id="T_ee893_row52_col7" class="data row52 col7" >Django Unchained</td>
+                        <td id="T_ee893_row52_col8" class="data row52 col8" >movie</td>
+                        <td id="T_ee893_row52_col9" class="data row52 col9" >2012</td>
+                        <td id="T_ee893_row52_col10" class="data row52 col10" >tt1853728</td>
+                        <td id="T_ee893_row52_col11" class="data row52 col11" >8.400000</td>
+                        <td id="T_ee893_row52_col12" class="data row52 col12" >1110266</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row53_col0" class="data row53 col0" >India</td>
+                        <td id="T_ee893_row53_col1" class="data row53 col1" >S.S. Rajamouli</td>
+                        <td id="T_ee893_row53_col2" class="data row53 col2" >Telugu, Tamil, Hindi, Malayalam</td>
+                        <td id="T_ee893_row53_col3" class="data row53 col3" >Arka Media Works</td>
+                        <td id="T_ee893_row53_col4" class="data row53 col4" >NOT RATED</td>
+                        <td id="T_ee893_row53_col5" class="data row53 col5" >NaT</td>
+                        <td id="T_ee893_row53_col6" class="data row53 col6" >167</td>
+                        <td id="T_ee893_row53_col7" class="data row53 col7" >Baahubali 2: The Conclusion</td>
+                        <td id="T_ee893_row53_col8" class="data row53 col8" >movie</td>
+                        <td id="T_ee893_row53_col9" class="data row53 col9" >2017</td>
+                        <td id="T_ee893_row53_col10" class="data row53 col10" >tt4849438</td>
+                        <td id="T_ee893_row53_col11" class="data row53 col11" >8.400000</td>
+                        <td id="T_ee893_row53_col12" class="data row53 col12" >54646</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row54_col0" class="data row54 col0" >Italy, USA</td>
+                        <td id="T_ee893_row54_col1" class="data row54 col1" >Sergio Leone</td>
+                        <td id="T_ee893_row54_col2" class="data row54 col2" >English, Italian, French</td>
+                        <td id="T_ee893_row54_col3" class="data row54 col3" >Warner Home Video</td>
+                        <td id="T_ee893_row54_col4" class="data row54 col4" >R</td>
+                        <td id="T_ee893_row54_col5" class="data row54 col5" >NaT</td>
+                        <td id="T_ee893_row54_col6" class="data row54 col6" >229</td>
+                        <td id="T_ee893_row54_col7" class="data row54 col7" >Once Upon a Time in America</td>
+                        <td id="T_ee893_row54_col8" class="data row54 col8" >movie</td>
+                        <td id="T_ee893_row54_col9" class="data row54 col9" >1984</td>
+                        <td id="T_ee893_row54_col10" class="data row54 col10" >tt0087843</td>
+                        <td id="T_ee893_row54_col11" class="data row54 col11" >8.400000</td>
+                        <td id="T_ee893_row54_col12" class="data row54 col12" >253646</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row55_col0" class="data row55 col0" >USA</td>
+                        <td id="T_ee893_row55_col1" class="data row55 col1" >Mel Gibson</td>
+                        <td id="T_ee893_row55_col2" class="data row55 col2" >English, French, Latin, Scottish Gaelic</td>
+                        <td id="T_ee893_row55_col3" class="data row55 col3" >Paramount Pictures</td>
+                        <td id="T_ee893_row55_col4" class="data row55 col4" >R</td>
+                        <td id="T_ee893_row55_col5" class="data row55 col5" >NaT</td>
+                        <td id="T_ee893_row55_col6" class="data row55 col6" >178</td>
+                        <td id="T_ee893_row55_col7" class="data row55 col7" >Braveheart</td>
+                        <td id="T_ee893_row55_col8" class="data row55 col8" >movie</td>
+                        <td id="T_ee893_row55_col9" class="data row55 col9" >1995</td>
+                        <td id="T_ee893_row55_col10" class="data row55 col10" >tt0112573</td>
+                        <td id="T_ee893_row55_col11" class="data row55 col11" >8.400000</td>
+                        <td id="T_ee893_row55_col12" class="data row55 col12" >832000</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row56_col0" class="data row56 col0" >USA</td>
+                        <td id="T_ee893_row56_col1" class="data row56 col1" >Andrew Stanton</td>
+                        <td id="T_ee893_row56_col2" class="data row56 col2" >English</td>
+                        <td id="T_ee893_row56_col3" class="data row56 col3" >Walt Disney Pictures</td>
+                        <td id="T_ee893_row56_col4" class="data row56 col4" >G</td>
+                        <td id="T_ee893_row56_col5" class="data row56 col5" >NaT</td>
+                        <td id="T_ee893_row56_col6" class="data row56 col6" >98</td>
+                        <td id="T_ee893_row56_col7" class="data row56 col7" >WALL·E</td>
+                        <td id="T_ee893_row56_col8" class="data row56 col8" >movie</td>
+                        <td id="T_ee893_row56_col9" class="data row56 col9" >2008</td>
+                        <td id="T_ee893_row56_col10" class="data row56 col10" >tt0910970</td>
+                        <td id="T_ee893_row56_col11" class="data row56 col11" >8.400000</td>
+                        <td id="T_ee893_row56_col12" class="data row56 col12" >829713</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row57_col0" class="data row57 col0" >India</td>
+                        <td id="T_ee893_row57_col1" class="data row57 col1" >Rakeysh Omprakash Mehra</td>
+                        <td id="T_ee893_row57_col2" class="data row57 col2" >Hindi</td>
+                        <td id="T_ee893_row57_col3" class="data row57 col3" >Reliance Entertainment</td>
+                        <td id="T_ee893_row57_col4" class="data row57 col4" >NOT RATED</td>
+                        <td id="T_ee893_row57_col5" class="data row57 col5" >NaT</td>
+                        <td id="T_ee893_row57_col6" class="data row57 col6" >186</td>
+                        <td id="T_ee893_row57_col7" class="data row57 col7" >Bhaag Milkha Bhaag</td>
+                        <td id="T_ee893_row57_col8" class="data row57 col8" >movie</td>
+                        <td id="T_ee893_row57_col9" class="data row57 col9" >2013</td>
+                        <td id="T_ee893_row57_col10" class="data row57 col10" >tt2356180</td>
+                        <td id="T_ee893_row57_col11" class="data row57 col11" >8.300000</td>
+                        <td id="T_ee893_row57_col12" class="data row57 col12" >49205</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row58_col0" class="data row58 col0" >France</td>
+                        <td id="T_ee893_row58_col1" class="data row58 col1" >Marcel Carné</td>
+                        <td id="T_ee893_row58_col2" class="data row58 col2" >French</td>
+                        <td id="T_ee893_row58_col3" class="data row58 col3" >Home Vision Entertainment</td>
+                        <td id="T_ee893_row58_col4" class="data row58 col4" >NOT RATED</td>
+                        <td id="T_ee893_row58_col5" class="data row58 col5" >NaT</td>
+                        <td id="T_ee893_row58_col6" class="data row58 col6" >189</td>
+                        <td id="T_ee893_row58_col7" class="data row58 col7" >Children of Paradise</td>
+                        <td id="T_ee893_row58_col8" class="data row58 col8" >movie</td>
+                        <td id="T_ee893_row58_col9" class="data row58 col9" >1945</td>
+                        <td id="T_ee893_row58_col10" class="data row58 col10" >tt0037674</td>
+                        <td id="T_ee893_row58_col11" class="data row58 col11" >8.300000</td>
+                        <td id="T_ee893_row58_col12" class="data row58 col12" >15648</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row59_col0" class="data row59 col0" >USA</td>
+                        <td id="T_ee893_row59_col1" class="data row59 col1" >Darren Aronofsky</td>
+                        <td id="T_ee893_row59_col2" class="data row59 col2" >English</td>
+                        <td id="T_ee893_row59_col3" class="data row59 col3" >Artisan Entertainment</td>
+                        <td id="T_ee893_row59_col4" class="data row59 col4" >R</td>
+                        <td id="T_ee893_row59_col5" class="data row59 col5" >NaT</td>
+                        <td id="T_ee893_row59_col6" class="data row59 col6" >102</td>
+                        <td id="T_ee893_row59_col7" class="data row59 col7" >Requiem for a Dream</td>
+                        <td id="T_ee893_row59_col8" class="data row59 col8" >movie</td>
+                        <td id="T_ee893_row59_col9" class="data row59 col9" >2000</td>
+                        <td id="T_ee893_row59_col10" class="data row59 col10" >tt0180093</td>
+                        <td id="T_ee893_row59_col11" class="data row59 col11" >8.300000</td>
+                        <td id="T_ee893_row59_col12" class="data row59 col12" >654488</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row60_col0" class="data row60 col0" >Japan</td>
+                        <td id="T_ee893_row60_col1" class="data row60 col1" >Yasujirô Ozu</td>
+                        <td id="T_ee893_row60_col2" class="data row60 col2" >Japanese</td>
+                        <td id="T_ee893_row60_col3" class="data row60 col3" >Criterion Collection</td>
+                        <td id="T_ee893_row60_col4" class="data row60 col4" >NOT RATED</td>
+                        <td id="T_ee893_row60_col5" class="data row60 col5" >NaT</td>
+                        <td id="T_ee893_row60_col6" class="data row60 col6" >108</td>
+                        <td id="T_ee893_row60_col7" class="data row60 col7" >Late Spring</td>
+                        <td id="T_ee893_row60_col8" class="data row60 col8" >movie</td>
+                        <td id="T_ee893_row60_col9" class="data row60 col9" >1949</td>
+                        <td id="T_ee893_row60_col10" class="data row60 col10" >tt0041154</td>
+                        <td id="T_ee893_row60_col11" class="data row60 col11" >8.300000</td>
+                        <td id="T_ee893_row60_col12" class="data row60 col12" >10614</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row61_col0" class="data row61 col0" >USA</td>
+                        <td id="T_ee893_row61_col1" class="data row61 col1" >John Lasseter</td>
+                        <td id="T_ee893_row61_col2" class="data row61 col2" >English</td>
+                        <td id="T_ee893_row61_col3" class="data row61 col3" >Buena Vista</td>
+                        <td id="T_ee893_row61_col4" class="data row61 col4" >G</td>
+                        <td id="T_ee893_row61_col5" class="data row61 col5" >NaT</td>
+                        <td id="T_ee893_row61_col6" class="data row61 col6" >81</td>
+                        <td id="T_ee893_row61_col7" class="data row61 col7" >Toy Story</td>
+                        <td id="T_ee893_row61_col8" class="data row61 col8" >movie</td>
+                        <td id="T_ee893_row61_col9" class="data row61 col9" >1995</td>
+                        <td id="T_ee893_row61_col10" class="data row61 col10" >tt0114709</td>
+                        <td id="T_ee893_row61_col11" class="data row61 col11" >8.300000</td>
+                        <td id="T_ee893_row61_col12" class="data row61 col12" >720659</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row62_col0" class="data row62 col0" >USA</td>
+                        <td id="T_ee893_row62_col1" class="data row62 col1" >John Huston</td>
+                        <td id="T_ee893_row62_col2" class="data row62 col2" >English, Spanish</td>
+                        <td id="T_ee893_row62_col3" class="data row62 col3" >WARNER BROTHERS PICTURES</td>
+                        <td id="T_ee893_row62_col4" class="data row62 col4" >NOT RATED</td>
+                        <td id="T_ee893_row62_col5" class="data row62 col5" >NaT</td>
+                        <td id="T_ee893_row62_col6" class="data row62 col6" >126</td>
+                        <td id="T_ee893_row62_col7" class="data row62 col7" >The Treasure of the Sierra Madre</td>
+                        <td id="T_ee893_row62_col8" class="data row62 col8" >movie</td>
+                        <td id="T_ee893_row62_col9" class="data row62 col9" >1948</td>
+                        <td id="T_ee893_row62_col10" class="data row62 col10" >tt0040897</td>
+                        <td id="T_ee893_row62_col11" class="data row62 col11" >8.300000</td>
+                        <td id="T_ee893_row62_col12" class="data row62 col12" >93198</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row63_col0" class="data row63 col0" >USA</td>
+                        <td id="T_ee893_row63_col1" class="data row63 col1" >Joseph Sargent</td>
+                        <td id="T_ee893_row63_col2" class="data row63 col2" >English</td>
+                        <td id="T_ee893_row63_col3" class="data row63 col3" >HBO Video</td>
+                        <td id="T_ee893_row63_col4" class="data row63 col4" >nan</td>
+                        <td id="T_ee893_row63_col5" class="data row63 col5" >NaT</td>
+                        <td id="T_ee893_row63_col6" class="data row63 col6" >110</td>
+                        <td id="T_ee893_row63_col7" class="data row63 col7" >Something the Lord Made</td>
+                        <td id="T_ee893_row63_col8" class="data row63 col8" >movie</td>
+                        <td id="T_ee893_row63_col9" class="data row63 col9" >2004</td>
+                        <td id="T_ee893_row63_col10" class="data row63 col10" >tt0386792</td>
+                        <td id="T_ee893_row63_col11" class="data row63 col11" >8.300000</td>
+                        <td id="T_ee893_row63_col12" class="data row63 col12" >10398</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row64_col0" class="data row64 col0" >USA, UK</td>
+                        <td id="T_ee893_row64_col1" class="data row64 col1" >Christopher Nolan</td>
+                        <td id="T_ee893_row64_col2" class="data row64 col2" >English, Urdu, Mandarin</td>
+                        <td id="T_ee893_row64_col3" class="data row64 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row64_col4" class="data row64 col4" >PG-13</td>
+                        <td id="T_ee893_row64_col5" class="data row64 col5" >NaT</td>
+                        <td id="T_ee893_row64_col6" class="data row64 col6" >140</td>
+                        <td id="T_ee893_row64_col7" class="data row64 col7" >Batman Begins</td>
+                        <td id="T_ee893_row64_col8" class="data row64 col8" >movie</td>
+                        <td id="T_ee893_row64_col9" class="data row64 col9" >2005</td>
+                        <td id="T_ee893_row64_col10" class="data row64 col10" >tt0372784</td>
+                        <td id="T_ee893_row64_col11" class="data row64 col11" >8.300000</td>
+                        <td id="T_ee893_row64_col12" class="data row64 col12" >1106588</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row65_col0" class="data row65 col0" >USA</td>
+                        <td id="T_ee893_row65_col1" class="data row65 col1" >Quentin Tarantino</td>
+                        <td id="T_ee893_row65_col2" class="data row65 col2" >English</td>
+                        <td id="T_ee893_row65_col3" class="data row65 col3" >Miramax Films</td>
+                        <td id="T_ee893_row65_col4" class="data row65 col4" >R</td>
+                        <td id="T_ee893_row65_col5" class="data row65 col5" >NaT</td>
+                        <td id="T_ee893_row65_col6" class="data row65 col6" >99</td>
+                        <td id="T_ee893_row65_col7" class="data row65 col7" >Reservoir Dogs</td>
+                        <td id="T_ee893_row65_col8" class="data row65 col8" >movie</td>
+                        <td id="T_ee893_row65_col9" class="data row65 col9" >1992</td>
+                        <td id="T_ee893_row65_col10" class="data row65 col10" >tt0105236</td>
+                        <td id="T_ee893_row65_col11" class="data row65 col11" >8.300000</td>
+                        <td id="T_ee893_row65_col12" class="data row65 col12" >755760</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row66_col0" class="data row66 col0" >USA</td>
+                        <td id="T_ee893_row66_col1" class="data row66 col1" >Michel Gondry</td>
+                        <td id="T_ee893_row66_col2" class="data row66 col2" >English</td>
+                        <td id="T_ee893_row66_col3" class="data row66 col3" >Focus Features</td>
+                        <td id="T_ee893_row66_col4" class="data row66 col4" >R</td>
+                        <td id="T_ee893_row66_col5" class="data row66 col5" >NaT</td>
+                        <td id="T_ee893_row66_col6" class="data row66 col6" >108</td>
+                        <td id="T_ee893_row66_col7" class="data row66 col7" >Eternal Sunshine of the Spotless Mind</td>
+                        <td id="T_ee893_row66_col8" class="data row66 col8" >movie</td>
+                        <td id="T_ee893_row66_col9" class="data row66 col9" >2004</td>
+                        <td id="T_ee893_row66_col10" class="data row66 col10" >tt0338013</td>
+                        <td id="T_ee893_row66_col11" class="data row66 col11" >8.300000</td>
+                        <td id="T_ee893_row66_col12" class="data row66 col12" >762632</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row67_col0" class="data row67 col0" >USA</td>
+                        <td id="T_ee893_row67_col1" class="data row67 col1" >Curtis Hanson</td>
+                        <td id="T_ee893_row67_col2" class="data row67 col2" >English</td>
+                        <td id="T_ee893_row67_col3" class="data row67 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row67_col4" class="data row67 col4" >R</td>
+                        <td id="T_ee893_row67_col5" class="data row67 col5" >NaT</td>
+                        <td id="T_ee893_row67_col6" class="data row67 col6" >138</td>
+                        <td id="T_ee893_row67_col7" class="data row67 col7" >L.A. Confidential</td>
+                        <td id="T_ee893_row67_col8" class="data row67 col8" >movie</td>
+                        <td id="T_ee893_row67_col9" class="data row67 col9" >1997</td>
+                        <td id="T_ee893_row67_col10" class="data row67 col10" >tt0119488</td>
+                        <td id="T_ee893_row67_col11" class="data row67 col11" >8.300000</td>
+                        <td id="T_ee893_row67_col12" class="data row67 col12" >458887</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row68_col0" class="data row68 col0" >USA</td>
+                        <td id="T_ee893_row68_col1" class="data row68 col1" >Gus Van Sant</td>
+                        <td id="T_ee893_row68_col2" class="data row68 col2" >English</td>
+                        <td id="T_ee893_row68_col3" class="data row68 col3" >Miramax Films</td>
+                        <td id="T_ee893_row68_col4" class="data row68 col4" >R</td>
+                        <td id="T_ee893_row68_col5" class="data row68 col5" >NaT</td>
+                        <td id="T_ee893_row68_col6" class="data row68 col6" >126</td>
+                        <td id="T_ee893_row68_col7" class="data row68 col7" >Good Will Hunting</td>
+                        <td id="T_ee893_row68_col8" class="data row68 col8" >movie</td>
+                        <td id="T_ee893_row68_col9" class="data row68 col9" >1997</td>
+                        <td id="T_ee893_row68_col10" class="data row68 col10" >tt0119217</td>
+                        <td id="T_ee893_row68_col11" class="data row68 col11" >8.300000</td>
+                        <td id="T_ee893_row68_col12" class="data row68 col12" >703100</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row69_col0" class="data row69 col0" >UK, USA</td>
+                        <td id="T_ee893_row69_col1" class="data row69 col1" >Stanley Kubrick</td>
+                        <td id="T_ee893_row69_col2" class="data row69 col2" >English, Vietnamese</td>
+                        <td id="T_ee893_row69_col3" class="data row69 col3" >Warner Bros.</td>
+                        <td id="T_ee893_row69_col4" class="data row69 col4" >R</td>
+                        <td id="T_ee893_row69_col5" class="data row69 col5" >NaT</td>
+                        <td id="T_ee893_row69_col6" class="data row69 col6" >116</td>
+                        <td id="T_ee893_row69_col7" class="data row69 col7" >Full Metal Jacket</td>
+                        <td id="T_ee893_row69_col8" class="data row69 col8" >movie</td>
+                        <td id="T_ee893_row69_col9" class="data row69 col9" >1987</td>
+                        <td id="T_ee893_row69_col10" class="data row69 col10" >tt0093058</td>
+                        <td id="T_ee893_row69_col11" class="data row69 col11" >8.300000</td>
+                        <td id="T_ee893_row69_col12" class="data row69 col12" >559170</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row70_col0" class="data row70 col0" >UK, Italy, Yugoslavia</td>
+                        <td id="T_ee893_row70_col1" class="data row70 col1" >Emir Kusturica</td>
+                        <td id="T_ee893_row70_col2" class="data row70 col2" >Romany, Serbo-Croatian, Italian, English</td>
+                        <td id="T_ee893_row70_col3" class="data row70 col3" >Sony Pictures Home Entertainment</td>
+                        <td id="T_ee893_row70_col4" class="data row70 col4" >R</td>
+                        <td id="T_ee893_row70_col5" class="data row70 col5" >NaT</td>
+                        <td id="T_ee893_row70_col6" class="data row70 col6" >142</td>
+                        <td id="T_ee893_row70_col7" class="data row70 col7" >Time of the Gypsies</td>
+                        <td id="T_ee893_row70_col8" class="data row70 col8" >movie</td>
+                        <td id="T_ee893_row70_col9" class="data row70 col9" >1988</td>
+                        <td id="T_ee893_row70_col10" class="data row70 col10" >tt0097223</td>
+                        <td id="T_ee893_row70_col11" class="data row70 col11" >8.300000</td>
+                        <td id="T_ee893_row70_col12" class="data row70 col12" >20556</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row71_col0" class="data row71 col0" >USA</td>
+                        <td id="T_ee893_row71_col1" class="data row71 col1" >Richard Marquand</td>
+                        <td id="T_ee893_row71_col2" class="data row71 col2" >English</td>
+                        <td id="T_ee893_row71_col3" class="data row71 col3" >Twentieth Century Fox</td>
+                        <td id="T_ee893_row71_col4" class="data row71 col4" >PG</td>
+                        <td id="T_ee893_row71_col5" class="data row71 col5" >NaT</td>
+                        <td id="T_ee893_row71_col6" class="data row71 col6" >131</td>
+                        <td id="T_ee893_row71_col7" class="data row71 col7" >Star Wars: Episode VI - Return of the Jedi</td>
+                        <td id="T_ee893_row71_col8" class="data row71 col8" >movie</td>
+                        <td id="T_ee893_row71_col9" class="data row71 col9" >1983</td>
+                        <td id="T_ee893_row71_col10" class="data row71 col10" >tt0086190</td>
+                        <td id="T_ee893_row71_col11" class="data row71 col11" >8.300000</td>
+                        <td id="T_ee893_row71_col12" class="data row71 col12" >795728</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row72_col0" class="data row72 col0" >UK, USA</td>
+                        <td id="T_ee893_row72_col1" class="data row72 col1" >Guy Ritchie</td>
+                        <td id="T_ee893_row72_col2" class="data row72 col2" >English, Russian</td>
+                        <td id="T_ee893_row72_col3" class="data row72 col3" >Columbia Pictures</td>
+                        <td id="T_ee893_row72_col4" class="data row72 col4" >R</td>
+                        <td id="T_ee893_row72_col5" class="data row72 col5" >NaT</td>
+                        <td id="T_ee893_row72_col6" class="data row72 col6" >102</td>
+                        <td id="T_ee893_row72_col7" class="data row72 col7" >Snatch</td>
+                        <td id="T_ee893_row72_col8" class="data row72 col8" >movie</td>
+                        <td id="T_ee893_row72_col9" class="data row72 col9" >2000</td>
+                        <td id="T_ee893_row72_col10" class="data row72 col10" >tt0208092</td>
+                        <td id="T_ee893_row72_col11" class="data row72 col11" >8.300000</td>
+                        <td id="T_ee893_row72_col12" class="data row72 col12" >674092</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row73_col0" class="data row73 col0" >Iran</td>
+                        <td id="T_ee893_row73_col1" class="data row73 col1" >Abbas Kiarostami</td>
+                        <td id="T_ee893_row73_col2" class="data row73 col2" >Persian, Azerbaijani</td>
+                        <td id="T_ee893_row73_col3" class="data row73 col3" >Zeitgeist Films</td>
+                        <td id="T_ee893_row73_col4" class="data row73 col4" >NOT RATED</td>
+                        <td id="T_ee893_row73_col5" class="data row73 col5" >NaT</td>
+                        <td id="T_ee893_row73_col6" class="data row73 col6" >98</td>
+                        <td id="T_ee893_row73_col7" class="data row73 col7" >Close-Up</td>
+                        <td id="T_ee893_row73_col8" class="data row73 col8" >movie</td>
+                        <td id="T_ee893_row73_col9" class="data row73 col9" >1990</td>
+                        <td id="T_ee893_row73_col10" class="data row73 col10" >tt0100234</td>
+                        <td id="T_ee893_row73_col11" class="data row73 col11" >8.300000</td>
+                        <td id="T_ee893_row73_col12" class="data row73 col12" >10767</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row74_col0" class="data row74 col0" >USA, Germany</td>
+                        <td id="T_ee893_row74_col1" class="data row74 col1" >Quentin Tarantino, Eli Roth</td>
+                        <td id="T_ee893_row74_col2" class="data row74 col2" >English, German, French, Italian</td>
+                        <td id="T_ee893_row74_col3" class="data row74 col3" >The Weinstein Company</td>
+                        <td id="T_ee893_row74_col4" class="data row74 col4" >R</td>
+                        <td id="T_ee893_row74_col5" class="data row74 col5" >NaT</td>
+                        <td id="T_ee893_row74_col6" class="data row74 col6" >153</td>
+                        <td id="T_ee893_row74_col7" class="data row74 col7" >Inglourious Basterds</td>
+                        <td id="T_ee893_row74_col8" class="data row74 col8" >movie</td>
+                        <td id="T_ee893_row74_col9" class="data row74 col9" >2009</td>
+                        <td id="T_ee893_row74_col10" class="data row74 col10" >tt0361748</td>
+                        <td id="T_ee893_row74_col11" class="data row74 col11" >8.300000</td>
+                        <td id="T_ee893_row74_col12" class="data row74 col12" >1024104</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row75_col0" class="data row75 col0" >France, Germany</td>
+                        <td id="T_ee893_row75_col1" class="data row75 col1" >Jean-Pierre Jeunet</td>
+                        <td id="T_ee893_row75_col2" class="data row75 col2" >French, Russian, English</td>
+                        <td id="T_ee893_row75_col3" class="data row75 col3" >Miramax Films</td>
+                        <td id="T_ee893_row75_col4" class="data row75 col4" >R</td>
+                        <td id="T_ee893_row75_col5" class="data row75 col5" >NaT</td>
+                        <td id="T_ee893_row75_col6" class="data row75 col6" >122</td>
+                        <td id="T_ee893_row75_col7" class="data row75 col7" >Amélie</td>
+                        <td id="T_ee893_row75_col8" class="data row75 col8" >movie</td>
+                        <td id="T_ee893_row75_col9" class="data row75 col9" >2001</td>
+                        <td id="T_ee893_row75_col10" class="data row75 col10" >tt0211915</td>
+                        <td id="T_ee893_row75_col11" class="data row75 col11" >8.300000</td>
+                        <td id="T_ee893_row75_col12" class="data row75 col12" >606353</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row76_col0" class="data row76 col0" >Italy, Spain, West Germany</td>
+                        <td id="T_ee893_row76_col1" class="data row76 col1" >Sergio Leone</td>
+                        <td id="T_ee893_row76_col2" class="data row76 col2" >Italian, English</td>
+                        <td id="T_ee893_row76_col3" class="data row76 col3" >MGM Home Entertainment</td>
+                        <td id="T_ee893_row76_col4" class="data row76 col4" >R</td>
+                        <td id="T_ee893_row76_col5" class="data row76 col5" >NaT</td>
+                        <td id="T_ee893_row76_col6" class="data row76 col6" >132</td>
+                        <td id="T_ee893_row76_col7" class="data row76 col7" >For a Few Dollars More</td>
+                        <td id="T_ee893_row76_col8" class="data row76 col8" >movie</td>
+                        <td id="T_ee893_row76_col9" class="data row76 col9" >1965</td>
+                        <td id="T_ee893_row76_col10" class="data row76 col10" >tt0059578</td>
+                        <td id="T_ee893_row76_col11" class="data row76 col11" >8.300000</td>
+                        <td id="T_ee893_row76_col12" class="data row76 col12" >185799</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row77_col0" class="data row77 col0" >Italy, France</td>
+                        <td id="T_ee893_row77_col1" class="data row77 col1" >Luchino Visconti</td>
+                        <td id="T_ee893_row77_col2" class="data row77 col2" >Italian</td>
+                        <td id="T_ee893_row77_col3" class="data row77 col3" >Titanus Produzione</td>
+                        <td id="T_ee893_row77_col4" class="data row77 col4" >NOT RATED</td>
+                        <td id="T_ee893_row77_col5" class="data row77 col5" >NaT</td>
+                        <td id="T_ee893_row77_col6" class="data row77 col6" >177</td>
+                        <td id="T_ee893_row77_col7" class="data row77 col7" >Rocco and His Brothers</td>
+                        <td id="T_ee893_row77_col8" class="data row77 col8" >movie</td>
+                        <td id="T_ee893_row77_col9" class="data row77 col9" >1960</td>
+                        <td id="T_ee893_row77_col10" class="data row77 col10" >tt0054248</td>
+                        <td id="T_ee893_row77_col11" class="data row77 col11" >8.300000</td>
+                        <td id="T_ee893_row77_col12" class="data row77 col12" >12987</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row78_col0" class="data row78 col0" >USA</td>
+                        <td id="T_ee893_row78_col1" class="data row78 col1" >Pete Docter, Bob Peterson(co-director)</td>
+                        <td id="T_ee893_row78_col2" class="data row78 col2" >English</td>
+                        <td id="T_ee893_row78_col3" class="data row78 col3" >Walt Disney Pictures</td>
+                        <td id="T_ee893_row78_col4" class="data row78 col4" >PG</td>
+                        <td id="T_ee893_row78_col5" class="data row78 col5" >NaT</td>
+                        <td id="T_ee893_row78_col6" class="data row78 col6" >96</td>
+                        <td id="T_ee893_row78_col7" class="data row78 col7" >Up</td>
+                        <td id="T_ee893_row78_col8" class="data row78 col8" >movie</td>
+                        <td id="T_ee893_row78_col9" class="data row78 col9" >2009</td>
+                        <td id="T_ee893_row78_col10" class="data row78 col10" >tt1049413</td>
+                        <td id="T_ee893_row78_col11" class="data row78 col11" >8.300000</td>
+                        <td id="T_ee893_row78_col12" class="data row78 col12" >771869</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row79_col0" class="data row79 col0" >USA</td>
+                        <td id="T_ee893_row79_col1" class="data row79 col1" >Charles Ferguson</td>
+                        <td id="T_ee893_row79_col2" class="data row79 col2" >English</td>
+                        <td id="T_ee893_row79_col3" class="data row79 col3" >Sony Pictures Classics</td>
+                        <td id="T_ee893_row79_col4" class="data row79 col4" >PG-13</td>
+                        <td id="T_ee893_row79_col5" class="data row79 col5" >NaT</td>
+                        <td id="T_ee893_row79_col6" class="data row79 col6" >105</td>
+                        <td id="T_ee893_row79_col7" class="data row79 col7" >Inside Job</td>
+                        <td id="T_ee893_row79_col8" class="data row79 col8" >movie</td>
+                        <td id="T_ee893_row79_col9" class="data row79 col9" >2010</td>
+                        <td id="T_ee893_row79_col10" class="data row79 col10" >tt1645089</td>
+                        <td id="T_ee893_row79_col11" class="data row79 col11" >8.300000</td>
+                        <td id="T_ee893_row79_col12" class="data row79 col12" >62391</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row80_col0" class="data row80 col0" >USA, Italy</td>
+                        <td id="T_ee893_row80_col1" class="data row80 col1" >nan</td>
+                        <td id="T_ee893_row80_col2" class="data row80 col2" >English, Hebrew, Aramaic, Yiddish, French</td>
+                        <td id="T_ee893_row80_col3" class="data row80 col3" >NOT_GIVEN</td>
+                        <td id="T_ee893_row80_col4" class="data row80 col4" >TV-MA</td>
+                        <td id="T_ee893_row80_col5" class="data row80 col5" >NaT</td>
+                        <td id="T_ee893_row80_col6" class="data row80 col6" >352</td>
+                        <td id="T_ee893_row80_col7" class="data row80 col7" >Angels in America</td>
+                        <td id="T_ee893_row80_col8" class="data row80 col8" >series</td>
+                        <td id="T_ee893_row80_col9" class="data row80 col9" >2003</td>
+                        <td id="T_ee893_row80_col10" class="data row80 col10" >tt0318997</td>
+                        <td id="T_ee893_row80_col11" class="data row80 col11" >8.300000</td>
+                        <td id="T_ee893_row80_col12" class="data row80 col12" >23307</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row81_col0" class="data row81 col0" >USA</td>
+                        <td id="T_ee893_row81_col1" class="data row81 col1" >Lee Unkrich</td>
+                        <td id="T_ee893_row81_col2" class="data row81 col2" >English, Spanish</td>
+                        <td id="T_ee893_row81_col3" class="data row81 col3" >Walt Disney Pictures</td>
+                        <td id="T_ee893_row81_col4" class="data row81 col4" >G</td>
+                        <td id="T_ee893_row81_col5" class="data row81 col5" >NaT</td>
+                        <td id="T_ee893_row81_col6" class="data row81 col6" >103</td>
+                        <td id="T_ee893_row81_col7" class="data row81 col7" >Toy Story 3</td>
+                        <td id="T_ee893_row81_col8" class="data row81 col8" >movie</td>
+                        <td id="T_ee893_row81_col9" class="data row81 col9" >2010</td>
+                        <td id="T_ee893_row81_col10" class="data row81 col10" >tt0435761</td>
+                        <td id="T_ee893_row81_col11" class="data row81 col11" >8.300000</td>
+                        <td id="T_ee893_row81_col12" class="data row81 col12" >624829</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row82_col0" class="data row82 col0" >Poland</td>
+                        <td id="T_ee893_row82_col1" class="data row82 col1" >Krzysztof Kieslowski</td>
+                        <td id="T_ee893_row82_col2" class="data row82 col2" >Polish, Portuguese</td>
+                        <td id="T_ee893_row82_col3" class="data row82 col3" >nan</td>
+                        <td id="T_ee893_row82_col4" class="data row82 col4" >NOT RATED</td>
+                        <td id="T_ee893_row82_col5" class="data row82 col5" >NaT</td>
+                        <td id="T_ee893_row82_col6" class="data row82 col6" >86</td>
+                        <td id="T_ee893_row82_col7" class="data row82 col7" >A Short Film About Love</td>
+                        <td id="T_ee893_row82_col8" class="data row82 col8" >movie</td>
+                        <td id="T_ee893_row82_col9" class="data row82 col9" >1988</td>
+                        <td id="T_ee893_row82_col10" class="data row82 col10" >tt0095467</td>
+                        <td id="T_ee893_row82_col11" class="data row82 col11" >8.300000</td>
+                        <td id="T_ee893_row82_col12" class="data row82 col12" >14697</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row83_col0" class="data row83 col0" >UK</td>
+                        <td id="T_ee893_row83_col1" class="data row83 col1" >Michael Powell, Emeric Pressburger</td>
+                        <td id="T_ee893_row83_col2" class="data row83 col2" >English, French, German</td>
+                        <td id="T_ee893_row83_col3" class="data row83 col3" >Archers</td>
+                        <td id="T_ee893_row83_col4" class="data row83 col4" >NOT RATED</td>
+                        <td id="T_ee893_row83_col5" class="data row83 col5" >NaT</td>
+                        <td id="T_ee893_row83_col6" class="data row83 col6" >163</td>
+                        <td id="T_ee893_row83_col7" class="data row83 col7" >The Life and Death of Colonel Blimp</td>
+                        <td id="T_ee893_row83_col8" class="data row83 col8" >movie</td>
+                        <td id="T_ee893_row83_col9" class="data row83 col9" >1943</td>
+                        <td id="T_ee893_row83_col10" class="data row83 col10" >tt0036112</td>
+                        <td id="T_ee893_row83_col11" class="data row83 col11" >8.200000</td>
+                        <td id="T_ee893_row83_col12" class="data row83 col12" >10803</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row84_col0" class="data row84 col0" >USA</td>
+                        <td id="T_ee893_row84_col1" class="data row84 col1" >Fax Bahr, George Hickenlooper, Eleanor Coppola</td>
+                        <td id="T_ee893_row84_col2" class="data row84 col2" >English</td>
+                        <td id="T_ee893_row84_col3" class="data row84 col3" >Showtime Network</td>
+                        <td id="T_ee893_row84_col4" class="data row84 col4" >R</td>
+                        <td id="T_ee893_row84_col5" class="data row84 col5" >NaT</td>
+                        <td id="T_ee893_row84_col6" class="data row84 col6" >96</td>
+                        <td id="T_ee893_row84_col7" class="data row84 col7" >Hearts of Darkness: A Filmmaker's Apocalypse</td>
+                        <td id="T_ee893_row84_col8" class="data row84 col8" >movie</td>
+                        <td id="T_ee893_row84_col9" class="data row84 col9" >1991</td>
+                        <td id="T_ee893_row84_col10" class="data row84 col10" >tt0102015</td>
+                        <td id="T_ee893_row84_col11" class="data row84 col11" >8.200000</td>
+                        <td id="T_ee893_row84_col12" class="data row84 col12" >15676</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row85_col0" class="data row85 col0" >USA</td>
+                        <td id="T_ee893_row85_col1" class="data row85 col1" >Fred C. Newmeyer, Sam Taylor</td>
+                        <td id="T_ee893_row85_col2" class="data row85 col2" >English</td>
+                        <td id="T_ee893_row85_col3" class="data row85 col3" >Criterion Collection</td>
+                        <td id="T_ee893_row85_col4" class="data row85 col4" >NOT RATED</td>
+                        <td id="T_ee893_row85_col5" class="data row85 col5" >NaT</td>
+                        <td id="T_ee893_row85_col6" class="data row85 col6" >70</td>
+                        <td id="T_ee893_row85_col7" class="data row85 col7" >Safety Last!</td>
+                        <td id="T_ee893_row85_col8" class="data row85 col8" >movie</td>
+                        <td id="T_ee893_row85_col9" class="data row85 col9" >1923</td>
+                        <td id="T_ee893_row85_col10" class="data row85 col10" >tt0014429</td>
+                        <td id="T_ee893_row85_col11" class="data row85 col11" >8.200000</td>
+                        <td id="T_ee893_row85_col12" class="data row85 col12" >14730</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row86_col0" class="data row86 col0" >USA</td>
+                        <td id="T_ee893_row86_col1" class="data row86 col1" >Stuart Rosenberg</td>
+                        <td id="T_ee893_row86_col2" class="data row86 col2" >English</td>
+                        <td id="T_ee893_row86_col3" class="data row86 col3" >Warner Bros.</td>
+                        <td id="T_ee893_row86_col4" class="data row86 col4" >GP</td>
+                        <td id="T_ee893_row86_col5" class="data row86 col5" >NaT</td>
+                        <td id="T_ee893_row86_col6" class="data row86 col6" >126</td>
+                        <td id="T_ee893_row86_col7" class="data row86 col7" >Cool Hand Luke</td>
+                        <td id="T_ee893_row86_col8" class="data row86 col8" >movie</td>
+                        <td id="T_ee893_row86_col9" class="data row86 col9" >1967</td>
+                        <td id="T_ee893_row86_col10" class="data row86 col10" >tt0061512</td>
+                        <td id="T_ee893_row86_col11" class="data row86 col11" >8.200000</td>
+                        <td id="T_ee893_row86_col12" class="data row86 col12" >135461</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row87_col0" class="data row87 col0" >USA</td>
+                        <td id="T_ee893_row87_col1" class="data row87 col1" >Ron Howard</td>
+                        <td id="T_ee893_row87_col2" class="data row87 col2" >English</td>
+                        <td id="T_ee893_row87_col3" class="data row87 col3" >Universal Pictures</td>
+                        <td id="T_ee893_row87_col4" class="data row87 col4" >PG-13</td>
+                        <td id="T_ee893_row87_col5" class="data row87 col5" >NaT</td>
+                        <td id="T_ee893_row87_col6" class="data row87 col6" >135</td>
+                        <td id="T_ee893_row87_col7" class="data row87 col7" >A Beautiful Mind</td>
+                        <td id="T_ee893_row87_col8" class="data row87 col8" >movie</td>
+                        <td id="T_ee893_row87_col9" class="data row87 col9" >2001</td>
+                        <td id="T_ee893_row87_col10" class="data row87 col10" >tt0268978</td>
+                        <td id="T_ee893_row87_col11" class="data row87 col11" >8.200000</td>
+                        <td id="T_ee893_row87_col12" class="data row87 col12" >707542</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row88_col0" class="data row88 col0" >USA</td>
+                        <td id="T_ee893_row88_col1" class="data row88 col1" >Martin Scorsese</td>
+                        <td id="T_ee893_row88_col2" class="data row88 col2" >English, French</td>
+                        <td id="T_ee893_row88_col3" class="data row88 col3" >Paramount Studios</td>
+                        <td id="T_ee893_row88_col4" class="data row88 col4" >R</td>
+                        <td id="T_ee893_row88_col5" class="data row88 col5" >NaT</td>
+                        <td id="T_ee893_row88_col6" class="data row88 col6" >180</td>
+                        <td id="T_ee893_row88_col7" class="data row88 col7" >The Wolf of Wall Street</td>
+                        <td id="T_ee893_row88_col8" class="data row88 col8" >movie</td>
+                        <td id="T_ee893_row88_col9" class="data row88 col9" >2013</td>
+                        <td id="T_ee893_row88_col10" class="data row88 col10" >tt0993846</td>
+                        <td id="T_ee893_row88_col11" class="data row88 col11" >8.200000</td>
+                        <td id="T_ee893_row88_col12" class="data row88 col12" >927079</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row89_col0" class="data row89 col0" >France</td>
+                        <td id="T_ee893_row89_col1" class="data row89 col1" >Carl Theodor Dreyer</td>
+                        <td id="T_ee893_row89_col2" class="data row89 col2" >French</td>
+                        <td id="T_ee893_row89_col3" class="data row89 col3" >Criterion Collection</td>
+                        <td id="T_ee893_row89_col4" class="data row89 col4" >NOT RATED</td>
+                        <td id="T_ee893_row89_col5" class="data row89 col5" >NaT</td>
+                        <td id="T_ee893_row89_col6" class="data row89 col6" >114</td>
+                        <td id="T_ee893_row89_col7" class="data row89 col7" >The Passion of Joan of Arc</td>
+                        <td id="T_ee893_row89_col8" class="data row89 col8" >movie</td>
+                        <td id="T_ee893_row89_col9" class="data row89 col9" >1928</td>
+                        <td id="T_ee893_row89_col10" class="data row89 col10" >tt0019254</td>
+                        <td id="T_ee893_row89_col11" class="data row89 col11" >8.200000</td>
+                        <td id="T_ee893_row89_col12" class="data row89 col12" >33050</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row90_col0" class="data row90 col0" >USA</td>
+                        <td id="T_ee893_row90_col1" class="data row90 col1" >Michael Mann</td>
+                        <td id="T_ee893_row90_col2" class="data row90 col2" >English, Spanish</td>
+                        <td id="T_ee893_row90_col3" class="data row90 col3" >Warner Bros.</td>
+                        <td id="T_ee893_row90_col4" class="data row90 col4" >R</td>
+                        <td id="T_ee893_row90_col5" class="data row90 col5" >NaT</td>
+                        <td id="T_ee893_row90_col6" class="data row90 col6" >170</td>
+                        <td id="T_ee893_row90_col7" class="data row90 col7" >Heat</td>
+                        <td id="T_ee893_row90_col8" class="data row90 col8" >movie</td>
+                        <td id="T_ee893_row90_col9" class="data row90 col9" >1995</td>
+                        <td id="T_ee893_row90_col10" class="data row90 col10" >tt0113277</td>
+                        <td id="T_ee893_row90_col11" class="data row90 col11" >8.200000</td>
+                        <td id="T_ee893_row90_col12" class="data row90 col12" >486621</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row91_col0" class="data row91 col0" >India</td>
+                        <td id="T_ee893_row91_col1" class="data row91 col1" >S.S. Rajamouli</td>
+                        <td id="T_ee893_row91_col2" class="data row91 col2" >Telugu, Tamil, Hindi</td>
+                        <td id="T_ee893_row91_col3" class="data row91 col3" >Arka Media Works</td>
+                        <td id="T_ee893_row91_col4" class="data row91 col4" >NOT RATED</td>
+                        <td id="T_ee893_row91_col5" class="data row91 col5" >NaT</td>
+                        <td id="T_ee893_row91_col6" class="data row91 col6" >159</td>
+                        <td id="T_ee893_row91_col7" class="data row91 col7" >Baahubali: The Beginning</td>
+                        <td id="T_ee893_row91_col8" class="data row91 col8" >movie</td>
+                        <td id="T_ee893_row91_col9" class="data row91 col9" >2015</td>
+                        <td id="T_ee893_row91_col10" class="data row91 col10" >tt2631186</td>
+                        <td id="T_ee893_row91_col11" class="data row91 col11" >8.200000</td>
+                        <td id="T_ee893_row91_col12" class="data row91 col12" >84198</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row92_col0" class="data row92 col0" >France, USA</td>
+                        <td id="T_ee893_row92_col1" class="data row92 col1" >Martin Scorsese</td>
+                        <td id="T_ee893_row92_col2" class="data row92 col2" >English</td>
+                        <td id="T_ee893_row92_col3" class="data row92 col3" >Universal Pictures</td>
+                        <td id="T_ee893_row92_col4" class="data row92 col4" >R</td>
+                        <td id="T_ee893_row92_col5" class="data row92 col5" >NaT</td>
+                        <td id="T_ee893_row92_col6" class="data row92 col6" >178</td>
+                        <td id="T_ee893_row92_col7" class="data row92 col7" >Casino</td>
+                        <td id="T_ee893_row92_col8" class="data row92 col8" >movie</td>
+                        <td id="T_ee893_row92_col9" class="data row92 col9" >1995</td>
+                        <td id="T_ee893_row92_col10" class="data row92 col10" >tt0112641</td>
+                        <td id="T_ee893_row92_col11" class="data row92 col11" >8.200000</td>
+                        <td id="T_ee893_row92_col12" class="data row92 col12" >377676</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row93_col0" class="data row93 col0" >UK, USA</td>
+                        <td id="T_ee893_row93_col1" class="data row93 col1" >Martin McDonagh</td>
+                        <td id="T_ee893_row93_col2" class="data row93 col2" >English</td>
+                        <td id="T_ee893_row93_col3" class="data row93 col3" >Fox Searchlight Pictures</td>
+                        <td id="T_ee893_row93_col4" class="data row93 col4" >R</td>
+                        <td id="T_ee893_row93_col5" class="data row93 col5" >NaT</td>
+                        <td id="T_ee893_row93_col6" class="data row93 col6" >115</td>
+                        <td id="T_ee893_row93_col7" class="data row93 col7" >Three Billboards Outside Ebbing, Missouri</td>
+                        <td id="T_ee893_row93_col8" class="data row93 col8" >movie</td>
+                        <td id="T_ee893_row93_col9" class="data row93 col9" >2017</td>
+                        <td id="T_ee893_row93_col10" class="data row93 col10" >tt5027774</td>
+                        <td id="T_ee893_row93_col11" class="data row93 col11" >8.200000</td>
+                        <td id="T_ee893_row93_col12" class="data row93 col12" >190677</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row94_col0" class="data row94 col0" >India</td>
+                        <td id="T_ee893_row94_col1" class="data row94 col1" >Ashutosh Gowariker</td>
+                        <td id="T_ee893_row94_col2" class="data row94 col2" >Hindi, English, Awadhi, Urdu</td>
+                        <td id="T_ee893_row94_col3" class="data row94 col3" >B4U Entertainment</td>
+                        <td id="T_ee893_row94_col4" class="data row94 col4" >PG</td>
+                        <td id="T_ee893_row94_col5" class="data row94 col5" >NaT</td>
+                        <td id="T_ee893_row94_col6" class="data row94 col6" >224</td>
+                        <td id="T_ee893_row94_col7" class="data row94 col7" >Lagaan: Once Upon a Time in India</td>
+                        <td id="T_ee893_row94_col8" class="data row94 col8" >movie</td>
+                        <td id="T_ee893_row94_col9" class="data row94 col9" >2001</td>
+                        <td id="T_ee893_row94_col10" class="data row94 col10" >tt0169102</td>
+                        <td id="T_ee893_row94_col11" class="data row94 col11" >8.200000</td>
+                        <td id="T_ee893_row94_col12" class="data row94 col12" >85290</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row95_col0" class="data row95 col0" >USA</td>
+                        <td id="T_ee893_row95_col1" class="data row95 col1" >Ernst Lubitsch</td>
+                        <td id="T_ee893_row95_col2" class="data row95 col2" >English, Italian, Russian, Spanish, German</td>
+                        <td id="T_ee893_row95_col3" class="data row95 col3" >Paramount Pictures</td>
+                        <td id="T_ee893_row95_col4" class="data row95 col4" >NOT RATED</td>
+                        <td id="T_ee893_row95_col5" class="data row95 col5" >NaT</td>
+                        <td id="T_ee893_row95_col6" class="data row95 col6" >83</td>
+                        <td id="T_ee893_row95_col7" class="data row95 col7" >Trouble in Paradise</td>
+                        <td id="T_ee893_row95_col8" class="data row95 col8" >movie</td>
+                        <td id="T_ee893_row95_col9" class="data row95 col9" >1932</td>
+                        <td id="T_ee893_row95_col10" class="data row95 col10" >tt0023622</td>
+                        <td id="T_ee893_row95_col11" class="data row95 col11" >8.200000</td>
+                        <td id="T_ee893_row95_col12" class="data row95 col12" >10768</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row96_col0" class="data row96 col0" >USA</td>
+                        <td id="T_ee893_row96_col1" class="data row96 col1" >Clint Eastwood</td>
+                        <td id="T_ee893_row96_col2" class="data row96 col2" >English</td>
+                        <td id="T_ee893_row96_col3" class="data row96 col3" >Warner Bros. Pictures</td>
+                        <td id="T_ee893_row96_col4" class="data row96 col4" >R</td>
+                        <td id="T_ee893_row96_col5" class="data row96 col5" >NaT</td>
+                        <td id="T_ee893_row96_col6" class="data row96 col6" >130</td>
+                        <td id="T_ee893_row96_col7" class="data row96 col7" >Unforgiven</td>
+                        <td id="T_ee893_row96_col8" class="data row96 col8" >movie</td>
+                        <td id="T_ee893_row96_col9" class="data row96 col9" >1992</td>
+                        <td id="T_ee893_row96_col10" class="data row96 col10" >tt0105695</td>
+                        <td id="T_ee893_row96_col11" class="data row96 col11" >8.200000</td>
+                        <td id="T_ee893_row96_col12" class="data row96 col12" >314129</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row97_col0" class="data row97 col0" >Spain, Mexico, USA</td>
+                        <td id="T_ee893_row97_col1" class="data row97 col1" >Guillermo del Toro</td>
+                        <td id="T_ee893_row97_col2" class="data row97 col2" >Spanish</td>
+                        <td id="T_ee893_row97_col3" class="data row97 col3" >Picturehouse</td>
+                        <td id="T_ee893_row97_col4" class="data row97 col4" >R</td>
+                        <td id="T_ee893_row97_col5" class="data row97 col5" >NaT</td>
+                        <td id="T_ee893_row97_col6" class="data row97 col6" >118</td>
+                        <td id="T_ee893_row97_col7" class="data row97 col7" >Pan's Labyrinth</td>
+                        <td id="T_ee893_row97_col8" class="data row97 col8" >movie</td>
+                        <td id="T_ee893_row97_col9" class="data row97 col9" >2006</td>
+                        <td id="T_ee893_row97_col10" class="data row97 col10" >tt0457430</td>
+                        <td id="T_ee893_row97_col11" class="data row97 col11" >8.200000</td>
+                        <td id="T_ee893_row97_col12" class="data row97 col12" >530806</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row98_col0" class="data row98 col0" >Japan</td>
+                        <td id="T_ee893_row98_col1" class="data row98 col1" >Yasujirô Ozu</td>
+                        <td id="T_ee893_row98_col2" class="data row98 col2" >Japanese, English</td>
+                        <td id="T_ee893_row98_col3" class="data row98 col3" >BFI Production</td>
+                        <td id="T_ee893_row98_col4" class="data row98 col4" >NOT RATED</td>
+                        <td id="T_ee893_row98_col5" class="data row98 col5" >NaT</td>
+                        <td id="T_ee893_row98_col6" class="data row98 col6" >136</td>
+                        <td id="T_ee893_row98_col7" class="data row98 col7" >Tokyo Story</td>
+                        <td id="T_ee893_row98_col8" class="data row98 col8" >movie</td>
+                        <td id="T_ee893_row98_col9" class="data row98 col9" >1953</td>
+                        <td id="T_ee893_row98_col10" class="data row98 col10" >tt0046438</td>
+                        <td id="T_ee893_row98_col11" class="data row98 col11" >8.200000</td>
+                        <td id="T_ee893_row98_col12" class="data row98 col12" >36987</td>
+            </tr>
+            <tr>
+                                <td id="T_ee893_row99_col0" class="data row99 col0" >Ireland, Canada, UK, USA</td>
+                        <td id="T_ee893_row99_col1" class="data row99 col1" >Lenny Abrahamson</td>
+                        <td id="T_ee893_row99_col2" class="data row99 col2" >English</td>
+                        <td id="T_ee893_row99_col3" class="data row99 col3" >Element Pictures</td>
+                        <td id="T_ee893_row99_col4" class="data row99 col4" >R</td>
+                        <td id="T_ee893_row99_col5" class="data row99 col5" >NaT</td>
+                        <td id="T_ee893_row99_col6" class="data row99 col6" >118</td>
+                        <td id="T_ee893_row99_col7" class="data row99 col7" >Room</td>
+                        <td id="T_ee893_row99_col8" class="data row99 col8" >movie</td>
+                        <td id="T_ee893_row99_col9" class="data row99 col9" >2015</td>
+                        <td id="T_ee893_row99_col10" class="data row99 col10" >tt3170832</td>
+                        <td id="T_ee893_row99_col11" class="data row99 col11" >8.200000</td>
+                        <td id="T_ee893_row99_col12" class="data row99 col12" >265420</td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ratings info</span>
+<span class="n">ratings</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 92016 entries, 0 to 92015
+Data columns (total 4 columns):
+ #   Column        Non-Null Count  Dtype 
+---  ------        --------------  ----- 
+ 0   Unnamed: 0    92016 non-null  int64 
+ 1   Rating        92016 non-null  object
+ 2   RatingSource  92016 non-null  object
+ 3   imdbID        92016 non-null  object
+dtypes: int64(1), object(3)
+memory usage: 2.8+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop unnecessary column</span>
+<span class="n">ratings</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join with rating to movies</span>
+<span class="n">movies_rating</span> <span class="o">=</span> <span class="p">(</span><span class="n">ratings</span>
+                  <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;imdbID&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">movies</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;imdbID&quot;</span><span class="p">),</span>
+                        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_rating</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Rating</th>
+      <th>RatingSource</th>
+      <th>Country</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+    <tr>
+      <th>imdbID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>tt0000012</th>
+      <td>7.4/10</td>
+      <td>Internet Movie Database</td>
+      <td>France</td>
+      <td>Auguste Lumière, Louis Lumière</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NOT RATED</td>
+      <td>NaT</td>
+      <td>1</td>
+      <td>The Arrival of a Train</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>7.4</td>
+      <td>7930</td>
+    </tr>
+    <tr>
+      <th>tt0000035</th>
+      <td>5.4/10</td>
+      <td>Internet Movie Database</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>Watering the Flowers</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>5.4</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>tt0000054</th>
+      <td>5.8/10</td>
+      <td>Internet Movie Database</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>A Merry-Go-Round</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>5.8</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>tt0000068</th>
+      <td>4.3/10</td>
+      <td>Internet Movie Database</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>Unloading the Boat</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>4.3</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>tt0000079</th>
+      <td>4.4/10</td>
+      <td>Internet Movie Database</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>La gare Saint-Lazare</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>4.4</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Genres info</span>
+<span class="n">genres</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 308565 entries, 0 to 308564
+Data columns (total 3 columns):
+ #   Column      Non-Null Count   Dtype 
+---  ------      --------------   ----- 
+ 0   Unnamed: 0  308565 non-null  int64 
+ 1   Genre       308565 non-null  object
+ 2   imdbID      308565 non-null  object
+dtypes: int64(1), object(2)
+memory usage: 7.1+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop unnecessary column</span>
+<span class="n">genres</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join with genres to movies</span>
+<span class="n">movies_genres</span> <span class="o">=</span> <span class="p">(</span><span class="n">genres</span>
+                  <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;imdbID&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">movies</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;imdbID&quot;</span><span class="p">),</span>
+                        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_genres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Genre</th>
+      <th>Country</th>
+      <th>Director</th>
+      <th>Language</th>
+      <th>Production</th>
+      <th>Rated</th>
+      <th>Released</th>
+      <th>Runtime</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Year</th>
+      <th>imdbRating</th>
+      <th>imdbVotes</th>
+    </tr>
+    <tr>
+      <th>imdbID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>tt0000012</th>
+      <td>Documentary</td>
+      <td>France</td>
+      <td>Auguste Lumière, Louis Lumière</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NOT RATED</td>
+      <td>NaT</td>
+      <td>1</td>
+      <td>The Arrival of a Train</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>7.4</td>
+      <td>7930</td>
+    </tr>
+    <tr>
+      <th>tt0000012</th>
+      <td>Short</td>
+      <td>France</td>
+      <td>Auguste Lumière, Louis Lumière</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NOT RATED</td>
+      <td>NaT</td>
+      <td>1</td>
+      <td>The Arrival of a Train</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>7.4</td>
+      <td>7930</td>
+    </tr>
+    <tr>
+      <th>tt0000035</th>
+      <td>Short</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>Watering the Flowers</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>5.4</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>tt0000054</th>
+      <td>Short</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>A Merry-Go-Round</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>5.8</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>tt0000068</th>
+      <td>Documentary</td>
+      <td>France</td>
+      <td>Georges Méliès</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>0</td>
+      <td>Unloading the Boat</td>
+      <td>movie</td>
+      <td>1896</td>
+      <td>4.3</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_genres</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;Released&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;Runtime&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;Year&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;imdbRating&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;imdbVotes&#39;}&gt;, &lt;AxesSubplot:&gt;]],
+      dtype=object)
+</pre></div>
+</div>
+<img alt="_images/exploratory-analysis_28_1.png" src="_images/exploratory-analysis_28_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    178686.000000
+mean         36.048571
+std          45.515070
+min           0.000000
+25%           0.000000
+50%          12.000000
+75%          75.000000
+max         964.000000
+Name: Runtime, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span><span class="p">[[</span><span class="s1">&#39;imdbID&#39;</span><span class="p">,</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Runtime&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">30</span><span class="o">-</span><span class="mi">3</span><span class="n">d5d130a0c07</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">movies</span><span class="p">[[</span><span class="s1">&#39;imdbID&#39;</span><span class="p">,</span><span class="s1">&#39;Runtime&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Runtime&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: &#39;NoneType&#39; object has no attribute &#39;head&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies</span><span class="o">.</span><span class="n">imdbVotes</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort by rating</span>
+<span class="n">movies</span><span class="p">[</span><span class="n">movies</span><span class="p">[</span><span class="s1">&#39;imdbVotes&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;imdbRating&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="top-directors.html" title="previous page">Top Directors</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By H. Sinan Alioglu<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

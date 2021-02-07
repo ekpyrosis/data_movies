@@ -1,0 +1,1249 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Data Analysis using TMDb dataset &#8212; Movies Data Analysis</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Movies Data Analysis</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Movies Data Analysis
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="top-directors.html">
+   Top Directors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exploratory-analysis.html">
+   Exploratory Data Analysis
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/movie-data-analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/movie-data-analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#table-of-contents">
+   Table of Contents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#research-questions-q">
+     Research Questions (Q):
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#research-hypotheses-h">
+     Research Hypotheses (H):
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-wrangling">
+   Data Wrangling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#general-properties">
+     General Properties
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-cleaning">
+     Data Cleaning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploratory-data-analysis">
+   Exploratory Data Analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#explore-data">
+     Explore Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#research-questions">
+     Research Questions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q1-which-genres-are-the-most-common-number-of-movies-made">
+       Q1. Which genres are the most common (number of movies made)?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q2-which-genres-have-high-avg-budget-and-revenue">
+       Q2. Which genres have high avg. budget and revenue?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q3-which-genres-have-high-avg-profit">
+       Q3. Which genres have high avg. profit?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q4-which-genres-have-high-vote-avg">
+       Q4. Which genres have high vote avg.?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q5-which-genres-have-high-avg-popularity">
+       Q5. Which genres have high avg. popularity?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q6-which-genres-have-high-avg-vote-count">
+       Q6. Which genres have high avg. vote count?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#q7-which-genres-have-high-number-of-movies-with-an-voting-avg-8">
+       Q7. Which genres have high number of movies with an voting avg. &gt;=8?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#analysis-of-development-of-means-of-variables-per-genre-over-the-years">
+       Analysis of development of means of variables per genre over the years
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#profit-per-genre-per-year">
+       Profit per genre per year
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#revenue-per-genre-per-year">
+       Revenue per genre per year
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#budget-per-genre-per-year">
+       Budget per genre per year
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vote-average-per-genre-per-year">
+       Vote Average per genre per year
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#vote-count-per-genre-per-year">
+       Vote Count per genre per year
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#popularity-per-genre-per-year">
+       Popularity per genre per year
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#research-hypotheses">
+     Research Hypotheses
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#h1-the-best-movies-according-to-vote-avg-return-high-profit-and-revenue">
+       H1. The best movies according to vote avg. return high profit and revenue.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#additonal-finding">
+       Additonal FInding
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#h2-the-best-movies-according-to-popularity-return-high-profit-and-revenue">
+       H2. The best movies according to popularity return high profit and revenue.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#h3-highly-budgeted-movies-return-high-revenue-and-profit">
+       H3. Highly budgeted movies return high revenue and profit.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#h4-highly-budgeted-movies-have-a-high-vote-avg">
+       H4. Highly budgeted movies have a high vote avg.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#h5-highly-budgeted-movies-have-a-high-popularity">
+       H5. Highly budgeted movies have a high popularity.
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   Conclusions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#limitations">
+     Limitations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#resources">
+     Resources
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="movie-data-analysis-using-tmdb-dataset">
+<h1>Movie Data Analysis using TMDb dataset<a class="headerlink" href="#movie-data-analysis-using-tmdb-dataset" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#wrangling">Data Wrangling</a></li>
+<li><a href="#eda">Exploratory Data Analysis</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+</ul><p><a id='intro'></a></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>In this project I will analyse TMDb’s data set containing information about 10,866 movies published between 1960 and 2015.</p>
+<div class="section" id="research-questions-q">
+<h3>Research Questions (Q):<a class="headerlink" href="#research-questions-q" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><a href="#q1">1. Which genres are the most common (number of movies made)?</a></li>
+<li><a href="#q2">2. Which genres have high avg. budget and revenue?</a></li>
+<li><a href="#q3">3. Which genres have high avg. profit?</a></li>
+<li><a href="#q4">4. Which genres have high vote avg.?</a></li>
+<li><a href="#q5">5. Which genres have high avg. popularity?</a></li>
+<li><a href="#q6">6. Which genres have high avg. vote count?</a></li>
+<li><a href="#q7">7. Which genres have high number of movies with an voting avg. >=8?</a></li>
+</ul>
+<ul>
+<li><a href="#analysis">Analysis of development of means of variables per genre over the years</a></li>
+</ul>
+</div>
+<div class="section" id="research-hypotheses-h">
+<h3>Research Hypotheses (H):<a class="headerlink" href="#research-hypotheses-h" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><a href="#h1">1. The best movies according to vote avg. return high profit and revenue.</a></li>
+<li><a href="#h2">2. The best movies according to popularity return high profit and revenue.</a></li>
+<li><a href="#h3">3. Highly budgeted movies return high revenue and profit.</a></li>
+<li><a href="#h4">4. Highly budgeted movies have a high vote avg.</a></li>
+<li><a href="#h5">5. Highly budgeted movies have a high popularity.</a></li>
+</ul><p><a id='wrangling'></a></p>
+</div>
+</div>
+<div class="section" id="data-wrangling">
+<h2>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-properties">
+<h3>General Properties<a class="headerlink" href="#general-properties" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Load data</p></li>
+<li><p>Get general info and overview</p></li>
+<li><p>Identify problems and actions to analyse research questions</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to set up import statements for all of the packages that you plan to use.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Remember to include a &#39;magic word&#39; so that your visualizations are plotted</span>
+<span class="c1">#   inline with the notebook. See this page for more:</span>
+<span class="c1">#   http://ipython.readthedocs.io/en/stable/interactive/magics.html</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
+<span class="n">moviedata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../input/tmdb-movies.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">4</span><span class="n">d1d212ea529</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Load data</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">moviedata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../input/tmdb-movies.csv&#39;</span><span class="p">)</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">603</span>     <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">604</span> 
+<span class="ne">--&gt; </span><span class="mi">605</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">606</span> 
+<span class="g g-Whitespace">    </span><span class="mi">607</span> 
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">455</span> 
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">457</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">458</span> 
+<span class="g g-Whitespace">    </span><span class="mi">459</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span>             <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span> 
+<span class="ne">--&gt; </span><span class="mi">814</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">815</span> 
+<span class="g g-Whitespace">    </span><span class="mi">816</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1043</span>             <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1044</span>         <span class="c1"># error: Too many arguments for &quot;ParserBase&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1045</span>         <span class="k">return</span> <span class="n">mapping</span><span class="p">[</span><span class="n">engine</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1046</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1047</span>     <span class="k">def</span> <span class="nf">_failover_to_python</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, src, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1860</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1861</span>         <span class="c1"># open handles</span>
+<span class="ne">-&gt; </span><span class="mi">1862</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_open_handles</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1863</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">1864</span>         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="s2">&quot;compression&quot;</span><span class="p">):</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/parsers.py</span> in <span class="ni">_open_handles</span><span class="nt">(self, src, kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1355</span>         <span class="n">Let</span> <span class="n">the</span> <span class="n">readers</span> <span class="nb">open</span> <span class="n">IOHanldes</span> <span class="n">after</span> <span class="n">they</span> <span class="n">are</span> <span class="n">done</span> <span class="k">with</span> <span class="n">their</span> <span class="n">potential</span> <span class="n">raises</span><span class="o">.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1356</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1357</span><span class="s2">         self.handles = get_handle(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1358</span><span class="s2">             src,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1359</span><span class="s2">             &quot;r&quot;,</span>
+
+<span class="nn">/opt/hostedtoolcache/Python/3.8.7/x64/lib/python3.8/site-packages/pandas/io/common.py</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span><span class="s2">                 errors = &quot;replace&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span><span class="s2">             # Encoding</span>
+<span class="ne">--&gt; </span><span class="mi">642</span><span class="s2">             handle = open(</span>
+<span class="g g-Whitespace">    </span><span class="mi">643</span><span class="s2">                 handle,</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span><span class="s2">                 ioargs.mode,</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;../input/tmdb-movies.csv&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get general info</span>
+<span class="n">moviedata</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get an overview</span>
+<span class="n">moviedata</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Genres are separated with “|”. I will need to split this column.</p>
+</div>
+<div class="section" id="data-cleaning">
+<h3>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Checking for and dropping of duplicates</p></li>
+<li><p>Only keep columns that are needed for analysis</p></li>
+<li><p>Create variable “profit”</p></li>
+<li><p>Split genres</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop duplicates</span>
+<span class="n">moviedata</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Check if done (-1 entry)</span>
+<span class="n">moviedata</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Almost all variables I need for my analysis have no null entries. Only for genres there are 23 null entries. In the next step I will first drop the null entries for genres and then only keep columns that I need for my further analysis. Plus, I will create a column showing the profit of each movie.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop rows containing missing values in genres</span>
+<span class="n">moviedata</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">moviedata</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create variable profit</span>
+<span class="n">moviedata</span> <span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moviedata</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">moviedata</span><span class="p">[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only keep columns that are needed for further analysis using movie title as index</span>
+<span class="n">md</span> <span class="o">=</span> <span class="n">moviedata</span><span class="p">[[</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;original_title&#39;</span><span class="p">,</span><span class="s1">&#39;runtime&#39;</span><span class="p">,</span> <span class="s1">&#39;genres&#39;</span><span class="p">,</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="s1">&#39;release_year&#39;</span><span class="p">]]</span>
+<span class="c1"># md.set_index(&#39;original_title&#39;, inplace=True)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check result</span>
+<span class="n">md</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split genres and create a new entry for each of the genre a movie falls into</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">md</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Series</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;genres&#39;</span>
+<span class="k">del</span> <span class="n">md</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span>
+<span class="n">md_split_genres</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check result</span>
+<span class="n">md_split_genres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">ed81e47a0573</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Check result</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">md_split_genres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+
+<span class="ne">NameError</span>: name &#39;md_split_genres&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check entries (should be a lot more rows since the most movies have more than one genre)</span>
+<span class="n">md_split_genres</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the data is ready for exploratory analysis.</p>
+<p><a id='eda'></a></p>
+</div>
+</div>
+<div class="section" id="exploratory-data-analysis">
+<h2>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="explore-data">
+<h3>Explore Data<a class="headerlink" href="#explore-data" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Distribution of variables</p></li>
+<li><p>Descriptive statistics</p></li>
+<li><p>Research Questions: Genre analysis (Q1 - Q7)</p></li>
+<li><p>Research Hypotheses: Correlation analysis (H1 - H5)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at histograms to get idea of how variables are distrubuted (overall)</span>
+<span class="n">md</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>All variables are skewed. The only variable that is closed to a normal distribution is vote avg. (slightly right skewed).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group data by genre and get mean for each genre and each variable, divide by 1 mio for clarity and better visibility</span>
+<span class="n">md_genre_mean</span> <span class="o">=</span> <span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;genres&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">md_genre_mean</span> <span class="p">[</span><span class="s1">&#39;profit_million&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000000</span>
+<span class="k">del</span> <span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span>
+<span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;revenue_million&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000000</span>
+<span class="k">del</span> <span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span>
+<span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;budget_million&#39;</span><span class="p">]</span> <span class="o">=</span><span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000000</span>
+<span class="k">del</span> <span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get distribution of mean of variables grouped by genre</span>
+<span class="n">md_genre_mean</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>All means of variables per genre are skewed. Mean of runtime across genres is closest to being normally distributed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overall Descriptive statistics</span>
+<span class="n">md</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get movies with highest budget, profit, popularity</span>
+<span class="n">md</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;budget&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;profit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;popularity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The Warrior’s Way had the highest budget with 425 mio USD. Avatar made the most profit with 2,544 mio USD. The most popular movie was Jurassic World.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get movies made per year, create new data frame</span>
+<span class="n">md_year</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;release_year&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">original_title</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="n">md_year</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get max of movies made per year</span>
+<span class="n">md_year</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;original_title&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot data, line chart for showing development over the years</span>
+<span class="n">md_year</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Movies made per year&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this graph we see that over time more and more movies were made per year. Starting at just 32 movies in 1960 up to 627 per year in 2015 with a max of 699 movies in 2014.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get mean of variables grouped by year (new data frame) in order to see what changed</span>
+<span class="n">md_year_mean</span> <span class="o">=</span> <span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;release_year&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check results</span>
+<span class="n">md_year_mean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the development of revenue, profit and budget of movies over the years</span>
+<span class="n">md_year_mean</span><span class="p">[[</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="s1">&#39;budget&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;TBD&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;crimson&#39;</span><span class="p">),</span><span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the chart above we can observe that revenue and profit developed almost in parallel until the early 1980s. In the 1980s budget is increasing more sharply. Probably as a consequence the gap between revenue and profit is starting to emerge. Producing movies got more expensive while simultaneously more and more movies were made and more and more people started to watch movies. Thus, during the 1990s revenues keept increasing while profit was dropping. At the end of the 1990s budget starts decreasing, probably due to technological progress, and therefore profits start to increase again. Since still more and more movies are being made…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_mean</span><span class="p">[[</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="s1">&#39;vote_count&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;TBD&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span><span class="n">secondary_y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vote_average&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this graph we see that vote average is decreasing over the years while the vote count is rising constantly. So more people vote but in general movies are getting worse?! Or people seem to like movies less…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lets turn to genres, reminder of what the split looked like</span>
+<span class="n">md_split_genres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many different genres do we have?</span>
+<span class="n">md_split_genres</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">md_split_genres</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Overall, we have movies from 20 unique genres.</p>
+</div>
+<div class="section" id="research-questions">
+<h3>Research Questions<a class="headerlink" href="#research-questions" title="Permalink to this headline">¶</a></h3>
+<p><a id='q1'></a></p>
+<div class="section" id="q1-which-genres-are-the-most-common-number-of-movies-made">
+<h4>Q1. Which genres are the most common (number of movies made)?<a class="headerlink" href="#q1-which-genres-are-the-most-common-number-of-movies-made" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group movies by genre using title as unique identifier and display all genres.</span>
+<span class="n">md_genre</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;genres&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">original_title</span><span class="o">.</span><span class="n">nunique</span><span class="p">()))</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;original_title&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">md_genre</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_genre</span><span class="p">[</span><span class="s1">&#39;original_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">title</span><span class="o">=</span> <span class="s1">&#39;Movies per Genre in %&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display in bar chart</span>
+<span class="n">md_genre</span><span class="p">[</span><span class="s1">&#39;original_title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Movies per Genre&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The most common genres are Drama (4672 movies, 17.6%) , Comedy (3750 movies, 14.2%) and Thriller (2841 movies, 10.7%).</p>
+<p><a id='q2'></a></p>
+</div>
+<div class="section" id="q2-which-genres-have-high-avg-budget-and-revenue">
+<h4>Q2. Which genres have high avg. budget and revenue?<a class="headerlink" href="#q2-which-genres-have-high-avg-budget-and-revenue" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check results</span>
+<span class="n">md_genre_mean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort data in acending order </span>
+<span class="n">md_genre_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;budget_million&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create bar chart with revenue and budget</span>
+<span class="n">md_genre_mean</span><span class="p">[[</span><span class="s1">&#39;revenue_million&#39;</span><span class="p">,</span> <span class="s1">&#39;budget_million&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Budget and Revenue by Genre (US$ million)&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the graph above we clearly see that the genre Adventure has both the highest avg. budget and revenue. Fantasy comes second in budget and revenue. Interestingly, Animation has the third highest revenue but only the sixth highest budget. Meaning Animation movies are on avg. more profitable. Lets look at profitability of the genres.</p>
+<p><a id='q3'></a></p>
+</div>
+<div class="section" id="q3-which-genres-have-high-avg-profit">
+<h4>Q3. Which genres have high avg. profit?<a class="headerlink" href="#q3-which-genres-have-high-avg-profit" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_genre_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;profit_million&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span>
+<span class="n">md_genre_mean</span><span class="p">[</span><span class="s1">&#39;profit_million&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Profit by Genre (US$ million)&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The top 5 genres in terms of avg. profit are Adventure, Fantasy, Animation, Family and Science Fiction.</p>
+<p><a id='q4'></a></p>
+</div>
+<div class="section" id="q4-which-genres-have-high-vote-avg">
+<h4>Q4. Which genres have high vote avg.?<a class="headerlink" href="#q4-which-genres-have-high-vote-avg" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_genre_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">md_genre_mean</span><span class="p">[[</span><span class="s1">&#39;vote_average&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Voting Avg by Genre&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Documentaries, Music and History have the hightest voting avg. Then comes Animation.</p>
+<p><a id='q5'></a></p>
+</div>
+<div class="section" id="q5-which-genres-have-high-avg-popularity">
+<h4>Q5. Which genres have high avg. popularity?<a class="headerlink" href="#q5-which-genres-have-high-avg-popularity" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_genre_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">md_genre_mean</span><span class="p">[[</span><span class="s1">&#39;popularity&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Genres by Avg Popularity&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The most popular genres are Adventure, Science Fiction, Fantasy, Action and again Animation.</p>
+<p>&lt;aid=’q6’&gt;</a></p>
+</div>
+<div class="section" id="q6-which-genres-have-high-avg-vote-count">
+<h4>Q6. Which genres have high avg. vote count?<a class="headerlink" href="#q6-which-genres-have-high-avg-vote-count" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_genre_mean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">md_genre_mean</span><span class="p">[[</span><span class="s1">&#39;vote_count&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Genres by Avg Vote Count&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, Documentary, Music and History have a relatively low number of votes. Compared to Adventure, Science Fiction and Fantasy. Then comes Action and again Animation.</p>
+<p><a id='q7'></a></p>
+</div>
+<div class="section" id="q7-which-genres-have-high-number-of-movies-with-an-voting-avg-8">
+<h4>Q7. Which genres have high number of movies with an voting avg. &gt;=8?<a class="headerlink" href="#q7-which-genres-have-high-number-of-movies-with-an-voting-avg-8" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_8</span> <span class="o">=</span> <span class="n">md_split_genres</span><span class="p">[</span><span class="n">md_split_genres</span><span class="p">[</span><span class="s1">&#39;vote_average&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">md_8</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;genres&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">original_title</span><span class="o">.</span><span class="n">nunique</span><span class="p">()))</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;original_title&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+<span class="n">md_8</span><span class="p">[[</span><span class="s1">&#39;original_title&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Genres with &gt;= 8 ratings&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The genre drama has the most movies with a rating of at least 8.</p>
+<p><a id='analysis'></a></p>
+</div>
+<div class="section" id="analysis-of-development-of-means-of-variables-per-genre-over-the-years">
+<h4>Analysis of development of means of variables per genre over the years<a class="headerlink" href="#analysis-of-development-of-means-of-variables-per-genre-over-the-years" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reminder of how the data frame looked like, when we splitted for genres</span>
+<span class="n">md_split_genres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create data frame grouped by genres AND release year, get means of variables of interest</span>
+<span class="n">md_year_genre_mean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span><span class="s1">&#39;popularity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_year_genre_mean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="profit-per-genre-per-year">
+<h4>Profit per genre per year<a class="headerlink" href="#profit-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create data frame for average profit per genre per year</span>
+<span class="n">md_year_genre_profit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;profit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_year_genre_profit</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pivot data to get the shape that is necessary for a heatmap that displays genres, years and avg. profit per genre per year</span>
+<span class="n">md_heat_profit_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_profit</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">md_heat_profit_pivot</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># display heatmap</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_profit_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This heatmap displays the average profit per genre per year from 1960 to 2015. The darker blue fields show higher profit, the brighter green into yellow fields show lower profit. In general, profits are increasing over time for especially for the genres Action, Adventure Animation, Family, Fantasy and Science Fiction.
+Animation movies had a very profitable year in 1961. History in 1991 and Western in 1998. Adventure in 2012.</p>
+</div>
+<div class="section" id="revenue-per-genre-per-year">
+<h4>Revenue per genre per year<a class="headerlink" href="#revenue-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_genre_revenue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_heat_revenue_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_revenue</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_revenue_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In terms of revenue the heatmap is of course closely related to the heatmap of profit showing a strong increase for Action, Adventure, Animation, Family, Fantasy and Science Fiction over the years. Nevertheless, the increases of revenue are more visible in the heatmap since revenues increased more sharply over the years than profit. The outliers for Animation movies in 1961 and History in 1991, Western in 1998 and Adventure in 2012 are also visible in the revenue heatmap. Outliers could be due to a view outperformers and very successful movies.</p>
+</div>
+<div class="section" id="budget-per-genre-per-year">
+<h4>Budget per genre per year<a class="headerlink" href="#budget-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_genre_budget</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;budget&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_heat_budget_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_budget</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_budget_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The heatmap shows that in particular the movies of the genres Action, Adventure, Family, Fantasy and Science Fiction had an increasing budget over the years. The heatmap also shows that Western movies had an extremely high budget in 1998 and 2011. This could mean that a costly movie is produced in 1998 (maybe even the successful one) and 2011 which has great influence on the average. This outlier could be removed for a later analysis to get a better overview of the distribution of the rest of the movies.</p>
+</div>
+<div class="section" id="vote-average-per-genre-per-year">
+<h4>Vote Average per genre per year<a class="headerlink" href="#vote-average-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_genre_vote_avg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;vote_average&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_heat_vote_avg_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_vote_avg</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_vote_avg_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This heatmap is way more blue than the previous ones. It seems that movies across genres got a better rating from ~1975 to 1985. Most of the genres seem to be getting somewhere around a 6 to 6.4 out of 10 score, though. Especially notable is the fact that there are very few green or yellow colored cells, which could mean that most movies are on average just a not so bad.</p>
+</div>
+<div class="section" id="vote-count-per-genre-per-year">
+<h4>Vote Count per genre per year<a class="headerlink" href="#vote-count-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_genre_vote_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;vote_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_heat_vote_count_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_vote_count</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_vote_count_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The heatmap shows that in particular the movies of the genres Action, Adventure, Fantasy and Science Fiction as well as Western had an increasing vote count over the years. Especially, Western movies had a extremely high avg. vote count in 2012.</p>
+</div>
+<div class="section" id="popularity-per-genre-per-year">
+<h4>Popularity per genre per year<a class="headerlink" href="#popularity-per-genre-per-year" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md_year_genre_pop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">md_split_genres</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;release_year&#39;</span><span class="p">,</span><span class="s1">&#39;genres&#39;</span><span class="p">])[</span><span class="s1">&#39;popularity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">md_heat_pop_pivot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">md_year_genre_pop</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;release_year&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">md_heat_pop_pivot</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlGnBu&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The heatmap shows that in particular the movies of the genres Action, Adventure, Fantasy and Science Fiction as well as Western had an increasing popularity over the years. Especially, Western movies had a extremely high avg. populartiy in 2012 (same as vote count). Moreover, Animation had a very high popularity in 1961 (maybe the high revenue/ profit movie).</p>
+</div>
+</div>
+<div class="section" id="research-hypotheses">
+<h3>Research Hypotheses<a class="headerlink" href="#research-hypotheses" title="Permalink to this headline">¶</a></h3>
+<p><a id='h1'></a></p>
+<div class="section" id="h1-the-best-movies-according-to-vote-avg-return-high-profit-and-revenue">
+<h4>H1. The best movies according to vote avg. return high profit and revenue.<a class="headerlink" href="#h1-the-best-movies-according-to-vote-avg-return-high-profit-and-revenue" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To see if there is a linear relationship b/w profit (revenue) and vote avg. I used the correlation coefficient of pearson and displayed the results in a table. With a coefficient of ~0.184 there is no evidence of a strong postive linear relationship b/w profit and vote avg. The same holds true for revenue with a coefficient of ~0.173. So movies with a higher avg. voting do not necessarily bring in high profits and revenues. There is no strong evidence in the data for hypothesis 1.</p>
+<p>I displayed the correlation in a scatterplot for visualization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Profit vs Vote Avg&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Revenue vs Vote Avg&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we see that there is no clear positve linear relationship since a lot of movies have a high voting avg. but only moderatly profit and revenue. Both scatterplots are similar since profit is derived from revenue.</p>
+</div>
+<div class="section" id="additonal-finding">
+<h4>Additonal FInding<a class="headerlink" href="#additonal-finding" title="Permalink to this headline">¶</a></h4>
+<p>However, the strongest linear relationship is evident b/w profit (revenue) and vote count ~0.756 and ~0.791, respectievly. It turns out that there is a strong linear relationship b/w proft (revenue) and the number of votes. Movies with a high number of votes seem to return high profit and revenue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Profit vs Vote Count&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;vote_count&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Revenue vs Vote Count&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id='h2'></a></p>
+</div>
+<div class="section" id="h2-the-best-movies-according-to-popularity-return-high-profit-and-revenue">
+<h4>H2. The best movies according to popularity return high profit and revenue.<a class="headerlink" href="#h2-the-best-movies-according-to-popularity-return-high-profit-and-revenue" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Profit vs Popularity&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Revenue vs Popularity&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we look at the relationship of avg. profit (revenue) with popularity we find that the correlation is more evident in the data. We get a correlation coefficient of ~0.629 for profit and popularity which demonstrates a moderate linear postive relationship. For revenue (which is closely related to profit since profit is calculated based on revenue) we get an even stronger linear relationship with a coefficient of ~0.663. This means that movies with a high avg. popularity rating did bring in on avg. more profit and revenue. There is moderate evidence in the data for hypothesis 2. OUTLIERS???</p>
+<p><a id='h3'></a></p>
+</div>
+<div class="section" id="h3-highly-budgeted-movies-return-high-revenue-and-profit">
+<h4>H3. Highly budgeted movies return high revenue and profit.<a class="headerlink" href="#h3-highly-budgeted-movies-return-high-revenue-and-profit" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Budget vs Revenue&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Budget vs Profit&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The correlation coefficient b/w budget and revenue is ~0.735. Here we have a strong linear relationship. We find strong evidence in the data that support hypothesis 3: Higly budgeted movies return in general higher revenue.</p>
+<p>For budget and profit we find evidence for a moderate linear relationship with a coefficient of ~0.570.</p>
+<p><a id='h4'></a></p>
+</div>
+<div class="section" id="h4-highly-budgeted-movies-have-a-high-vote-avg">
+<h4>H4. Highly budgeted movies have a high vote avg.<a class="headerlink" href="#h4-highly-budgeted-movies-have-a-high-vote-avg" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;vote_average&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Budget vs Vote Avg&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is no linear relationship b/w budget and vote avg (coefficient of ~0.082). We can reject hypothesis 4. Only because a movie has a high budget does not mean that it will receive a high voting avg.</p>
+<p><a id='h5'></a></p>
+</div>
+<div class="section" id="h5-highly-budgeted-movies-have-a-high-popularity">
+<h4>H5. Highly budgeted movies have a high popularity.<a class="headerlink" href="#h5-highly-budgeted-movies-have-a-high-popularity" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;popularity&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;budget&#39;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Budget vs Popularity&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We find a moderate linear relationship b/w budget and popularity with a correlation coefficient of ~0.545 and with that moderate evidence for hypothesis 5: Movies with a high budget seem to have moderately higher popularity.</p>
+<p><a id='conclusions'></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this headline">¶</a></h2>
+<p>So which genre should you pick if you want to produce a movie?</p>
+<ul class="simple">
+<li><p>If you want profit you should go for Adventure, Fantasy or Animation (Top 3 in terms of profit).</p></li>
+<li><p>If you want high rating go for Documentary, Music or History. (Taking into account that you will not have very much viewers and therefore revenue)</p></li>
+<li><p>If you want high popularity go for Adventure, Science Fiction or Fantasy.</p></li>
+<li><p>In general, profits (revenues) are increasing over time especially for the genres Action, Adventure, Animation, Family, Fantasy and Science Fiction. Animation movies had a very profitable year in 1961. History in 1991 and Western in 1998. Adventure in 2012.</p></li>
+<li><p>Also, movies of the genres Action, Adventure, Family, Fantasy and Science Fiction had an increasing budget over the years. The heatmap also shows that Western movies had an extremely high budget in 1998 and 2011.</p></li>
+</ul>
+<p>Let’s again look at the research hypotheses:</p>
+<ul class="simple">
+<li><p>Movies with a high avg. voting do not necessarily bring in high profits and revenues.</p></li>
+<li><p>However, movies with a high avg. popularity rating seem to bring in on avg. more profit and revenue.</p></li>
+<li><p>Higly budgeted movies return in general higher revenue, but not necessarily high profit (moderate linear relationship)</p></li>
+<li><p>Only because a movie has a high budget, does not mean that it becomes a great movie with a very high avg. rating.</p></li>
+</ul>
+<p>However, these relations are merely correlations and do not imply causation.</p>
+<div class="section" id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<p>The hypothesis questions were analyzed using the correlation coefficient. They all assume values in the range from −1 to +1, where +1 indicates the strongest possible agreement and −1 the strongest possible disagreement, in terms of linear relationship. As tools of analysis, correlation coefficients present certain problems, including the propensity of some types to be distorted by outliers and the possibility of incorrectly being used to infer a causal relationship between the variables.
+Therefore, these relations are merely correlations and do not imply causation. No statistical tests have been made to determine the robustness of relationships.</p>
+<p>The hypotheses should be investigated further.</p>
+</div>
+<div class="section" id="resources">
+<h3>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.heatmap.html">https://seaborn.pydata.org/generated/seaborn.heatmap.html</a>
+<a class="reference external" href="https://stackoverflow.com/questions/37790429/seaborn-heatmap-using-pandas-dataframe">https://stackoverflow.com/questions/37790429/seaborn-heatmap-using-pandas-dataframe</a>
+<a class="reference external" href="https://stackoverflow.com/questions/31594549/how-do-i-change-the-figure-size-for-a-seaborn-plot">https://stackoverflow.com/questions/31594549/how-do-i-change-the-figure-size-for-a-seaborn-plot</a>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.pivot.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.pivot.html</a>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reshaping.html">https://pandas.pydata.org/pandas-docs/stable/reshaping.html</a>
+<a class="reference external" href="https://github.com/pandas-dev/pandas/issues/11076">https://github.com/pandas-dev/pandas/issues/11076</a>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html</a>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/visualization.html">https://pandas.pydata.org/pandas-docs/stable/visualization.html</a>
+<a class="reference external" href="https://stackoverflow.com/questions/38337918/plot-pie-chart-and-table-of-pandas-dataframe">https://stackoverflow.com/questions/38337918/plot-pie-chart-and-table-of-pandas-dataframe</a>
+<a class="reference external" href="https://www.kaggle.com/rdrubbel/tmdb-analysis">https://www.kaggle.com/rdrubbel/tmdb-analysis</a>
+<a class="reference external" href="https://github.com/AjaSharma93/TMDB-Data-Analysis/blob/master/TMDB_Report.ipynb">https://github.com/AjaSharma93/TMDB-Data-Analysis/blob/master/TMDB_Report.ipynb</a>
+<a class="reference external" href="https://github.com/nirupamaprv/Investigate_Dataset/blob/master/Investigate_a_Dataset_TMDb.ipynb">https://github.com/nirupamaprv/Investigate_Dataset/blob/master/Investigate_a_Dataset_TMDb.ipynb</a>
+<a class="reference external" href="https://github.com/abhishekchhibber/IMDB_Dataset_Analysis/blob/master/imdb_db_analysis_abhishek_chhibber.ipynb">https://github.com/abhishekchhibber/IMDB_Dataset_Analysis/blob/master/imdb_db_analysis_abhishek_chhibber.ipynb</a></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By H. Sinan Alioglu<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
