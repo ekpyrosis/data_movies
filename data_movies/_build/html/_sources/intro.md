@@ -1,7 +1,8 @@
-Welcome to your Jupyter Book
+Movies Data Analysis
 ============================
 
-This is a small sample book to give you a feel for how book content is
-structured.
+This book contains a comprehensive analysis of movies from 1990 to 2017.
 
-Check out the content pages bundled with this sample book to get started.
+Data source: https://www.kaggle.com/beyjin/movies-1990-to-2017
+
+Check out the notebooks from left menu to explore.
